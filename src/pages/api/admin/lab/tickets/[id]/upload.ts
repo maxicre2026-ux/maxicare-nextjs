@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import formidable from "formidable";
 import fs from "fs";
+import { put } from "@vercel/blob";
 import path from "path";
 
 export const config = { api: { bodyParser: false } };
@@ -32,16 +33,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: "file required" });
 
     const ext = path.extname(file.originalFilename || "");
-    const destDir = path.join(process.cwd(), "public", "tickets", "results");
-    if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
-    const filename = `${Date.now()}${ext}`;
-    await fs.promises.copyFile(file.filepath, path.join(destDir, filename));
+    const buffer = await fs.promises.readFile(file.filepath);
+    const blob = await put(`tickets/results/${Date.now()}${ext}`, buffer, { access: "public" });
 
     const ticket = await prisma.ticket.update({
       where: { id: id as string },
-      data: { resultFile: filename },
+      data: { resultFile: blob.url },
     });
-    return res.status(200).json({ ticket });
+    return res.status(200).json({ ticket, url: blob.url });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server error" });

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import formidable from "formidable";
 import fs from "fs";
+import { put } from "@vercel/blob";
 import path from "path";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -37,18 +38,15 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({ onError })
     if (!file) return res.status(400).json({ error: "file required" });
 
     const ext = path.extname(file.originalFilename || "");
-    const destDir = path.join(process.cwd(), "public", "reports");
-    if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true });
-
-    const destPath = path.join(destDir, `${id}${ext}`);
-    await fs.promises.copyFile(file.filepath, destPath);
+    const dataBuffer = await fs.promises.readFile(file.filepath);
+    const blob = await put(`reports/${id}${ext}`, dataBuffer, { access: "public" });
 
     // record in DB
     await prisma.reportFile.create({
-      data: { filename: `${id}${ext}`, appointmentId: id },
+      data: { filename: blob.url, appointmentId: id },
     });
 
-    res.json({ ok: true, filename: `${id}${ext}` });
+    res.json({ ok: true, url: blob.url });
   });
 
 export default handler;
