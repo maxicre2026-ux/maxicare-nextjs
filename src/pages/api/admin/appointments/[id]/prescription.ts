@@ -26,11 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { files }: { files: any } = await new Promise((resolve, reject) => {
-      form.parse(req, (err: Error, fields: formidable.Fields, f: formidable.Files) => (err ? reject(err) : resolve({ files: f })));
+      form.parse(req, (err: any, fields: any, f: any) => (err ? reject(err) : resolve({ files: f })));
     });
 
-    const up = files.file as formidable.File | formidable.File[] | undefined;
-    const file = Array.isArray(up) ? up[0] : up;
+    const up = files.file as any;
+    const file: any = Array.isArray(up) ? up[0] : up;
     if (!file || !(file as any).filepath) return res.status(400).json({ error: "file required" });
 
     const destDir = path.join(process.cwd(), "public", "prescriptions");
