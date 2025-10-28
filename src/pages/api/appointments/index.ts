@@ -8,13 +8,12 @@ function generateSlotsCairo(date: Date) {
   const slots: string[] = [];
   // date parameter is local-agnostic (UTC midnight). We'll create times in Africa/Cairo zone (UTC+2 standard)
   const tz = 'Africa/Cairo';
+  const y = date.getUTCFullYear();
+  const m = date.getUTCMonth();
+  const d = date.getUTCDate();
+  const startUtc = Date.UTC(y, m, d, 13, 0, 0); // 13:00 UTC = 15:00 Cairo
   for (let i = 0; i < 12; i++) {
-    // 15:00 Cairo = 13:00 UTC (when offset +2)
-    const local = new Date(date.getTime());
-    local.setHours(15, 0, 0, 0); // 3:00 PM Cairo local time
-    local.setMinutes(local.getMinutes() + i * 30);
-    // convert using toISOString which is UTC representation
-    slots.push(local.toISOString());
+    slots.push(new Date(startUtc + i * 30 * 60 * 1000).toISOString());
   }
   return slots;
 }
