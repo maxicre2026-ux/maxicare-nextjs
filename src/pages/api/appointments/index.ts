@@ -4,13 +4,17 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // time helpers
-function generateSlots(date: Date) {
+function generateSlotsCairo(date: Date) {
   const slots: string[] = [];
-  // Start 3:00 PM local time
-  const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 15, 0, 0);
+  // date parameter is local-agnostic (UTC midnight). We'll create times in Africa/Cairo zone (UTC+2 standard)
+  const tz = 'Africa/Cairo';
   for (let i = 0; i < 12; i++) {
-    const slot = new Date(start.getTime() + i * 30 * 60 * 1000);
-    slots.push(slot.toISOString());
+    // 15:00 Cairo = 13:00 UTC (when offset +2)
+    const local = new Date(date.getTime());
+    local.setHours(15, 0, 0, 0); // 3:00 PM Cairo local time
+    local.setMinutes(local.getMinutes() + i * 30);
+    // convert using toISOString which is UTC representation
+    slots.push(local.toISOString());
   }
   return slots;
 }
@@ -36,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // if Friday (getDay = 5), no slots
     if (day.getDay() === 5) return res.json({ available: [] });
 
-    const allSlots = generateSlots(day);
+    const allSlots = generateSlotsCairo(day);
     const available = allSlots.filter((s) => !bookedIso.includes(s));
     return res.json({ available });
   }
