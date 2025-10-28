@@ -12,7 +12,7 @@ function generateSlotsCairo(date: Date) {
   const m = date.getUTCMonth();
   const d = date.getUTCDate();
   const startUtc = Date.UTC(y, m, d, 13, 0, 0); // 13:00 UTC = 15:00 Cairo
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 13; i++) {
     slots.push(new Date(startUtc + i * 30 * 60 * 1000).toISOString());
   }
   return slots;
