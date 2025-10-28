@@ -12,6 +12,7 @@ interface Ticket {
   files?: { id: string; filename: string }[];
   resultFile?: string;
   response?: string;
+  status?: string;
   messages?: { id: string; text: string; author: string; createdAt: string }[];
   createdAt: string;
 }
@@ -175,6 +176,7 @@ export default function LabPage() {
                   <tr className="border-b border-accent/40">
                     <th className="py-2 text-left">Date</th>
                     <th className="py-2 text-left">Subject</th>
+                    <th className="py-2 text-left">Status</th>
                     <th className="py-2 text-left">Attachment</th>
                     <th className="py-2 text-left">Result</th>
                     <th className="py-2 text-left">Response</th>
@@ -188,6 +190,7 @@ export default function LabPage() {
                       <tr key={t.id} className="border-b border-accent/10">
                         <td className="py-2">{dateStr}</td>
                         <td className="py-2">{t.subject}</td>
+                        <td className="py-2 text-xs">{t.status ?? '—'}</td>
                         <td className="py-2">
                           {t.attachment ? (
                             <a href={`/tickets/${t.attachment}`} target="_blank" className="underline text-accent">View</a>
