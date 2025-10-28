@@ -6,8 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 // time helpers
 function generateSlots(date: Date) {
   const slots: string[] = [];
-  const start = new Date(date);
-  start.setHours(15, 0, 0, 0); // 3:00 PM
+  // Start 3:00 PM local time
+  const start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 15, 0, 0);
   for (let i = 0; i < 12; i++) {
     const slot = new Date(start.getTime() + i * 30 * 60 * 1000);
     slots.push(slot.toISOString());
@@ -33,6 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       select: { date: true },
     });
     const bookedIso = booked.map((b) => b.date.toISOString());
+    // if Friday (getDay = 5), no slots
+    if (day.getDay() === 5) return res.json({ available: [] });
+
     const allSlots = generateSlots(day);
     const available = allSlots.filter((s) => !bookedIso.includes(s));
     return res.json({ available });
