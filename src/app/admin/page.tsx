@@ -9,6 +9,7 @@ interface Appointment {
   approved: boolean;
   note?: string;
   user: {
+    id: string;
     name: string;
     email: string;
     phone?: string;
