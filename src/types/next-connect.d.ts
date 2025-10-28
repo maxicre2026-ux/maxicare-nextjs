@@ -1,4 +1,4 @@
 declare module 'next-connect' {
-  const nc: any;
+  function nc<Req = any, Res = any>(...args: any[]): any;
   export default nc;
 }
