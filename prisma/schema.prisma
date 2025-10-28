@@ -1,0 +1,106 @@
+// Prisma schema for MaxiCare
+// Run `npx prisma generate` after editing
+// Models: User (client/admin), Appointment, Ticket
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  phone        String?
+  age          Int?
+  address      String?
+  country      String?
+  role         Role          @default(CLIENT)
+  appointments Appointment[]
+  tickets      Ticket[]
+  payments     Payment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+enum Role {
+  CLIENT
+  LAB_CLIENT
+  ADMIN
+}
+
+model Appointment {
+  id          String       @id @default(uuid())
+  date        DateTime
+  approved    Boolean      @default(false)
+  doctor      String?
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+  note        String?
+  prescriptionFile String?
+  reportFiles ReportFile[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Ticket {
+  id          String          @id @default(uuid())
+  subject     String
+  description String?
+  attachment  String?
+  resultFile  String?
+  status      TicketStatus    @default(PENDING)
+  user        User            @relation(fields: [userId], references: [id])
+  userId      String
+  response    String?
+  messages    TicketMessage[]
+  files       TicketFile[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+enum TicketStatus {
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Payment {
+  id        String   @id @default(uuid())
+  amount    Float
+  currency  String   @default("EGP")
+  notes     String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+}
+
+model ReportFile {
+  id            String      @id @default(uuid())
+  filename      String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String
+  uploadedAt    DateTime    @default(now())
+}
+
+model TicketMessage {
+  id        String   @id @default(uuid())
+  text      String
+  author    String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  String
+  createdAt DateTime @default(now())
+}
+
+model TicketFile {
+  id        String   @id @default(uuid())
+  filename  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  String
+  createdAt DateTime @default(now())
+}
