@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import formidable from "formidable";
 import fs from "fs";
+import { put } from "@vercel/blob";
 import path from "path";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -39,10 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const up = files.file as formidable.File | formidable.File[] | undefined;
     const file = Array.isArray(up) ? up[0] : up;
     if (file && (file as any).filepath) {
-      const dest = path.join(process.cwd(), "public", "tickets");
-      fs.mkdirSync(dest, { recursive: true });
-      attachment = Date.now() + path.extname(file.originalFilename || "");
-      await fs.promises.copyFile(file.filepath, path.join(dest, attachment));
+      const buffer = await fs.promises.readFile(file.filepath);
+      const ext = path.extname(file.originalFilename || "");
+      const blob = await put(`tickets/${Date.now()}${ext}`, buffer, { access: "public" });
+      attachment = blob.url;
     }
 
     const ticket = await prisma.ticket.create({
