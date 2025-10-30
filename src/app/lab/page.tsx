@@ -103,7 +103,11 @@ export default function LabPage() {
             MaxiCare’s fully equipped dental laboratory sets us apart with true start-to-finish control over every restoration.<br/>
             <strong>Cutting-Edge Equipment:</strong> We use high-precision milling machines and industrial-grade 3D printers to fabricate crowns, bridges, dentures, and implant prosthetics with micron-level accuracy.<br/>
             <strong>Customized Workflows:</strong> Each restoration is designed by our skilled technicians in collaboration with your dentist and tailored to your bite, anatomy, and esthetic goals.<br/>
-            <strong>Quality Assurance:</strong> Rigorous in-lab testing ensures a perfect fit, natural shade matching, and long-term durability before anything reaches your smile.
+            <strong>Quality Assurance:</strong> Rigorous in-lab testing ensures a perfect fit, natural shade matching, and long-term durability before anything reaches your smile.<br/>
+            <br/>
+            <strong>Services We Offer</strong><br/>
+            <em>Nationwide (Egypt):</em> Clinics in Egypt can order finished restorations or individual units (crowns, bridges, veneers, surgical guides, hybrid restorations) through our platforms.<br/>
+            <em>Worldwide (Remotely):</em> Remote Design Support – other dental labs can submit digital impressions or STL files through our secure online portal; our technicians will design frameworks, prosthetics, or custom abutments to your exact specifications.
           </p>
         </div>
         {/* Slider */}
