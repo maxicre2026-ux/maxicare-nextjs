@@ -99,7 +99,12 @@ export default function LabPage() {
         {/* Text */}
         <div className="space-y-6 order-2 md:order-1">
           <h2 className="text-3xl font-bold text-accent">Welcome to Our Lab</h2>
-          <p className="text-lg max-w-prose">Book lab tests, upload samples and download your results online.</p>
+          <p className="text-lg max-w-prose space-y-2">
+            MaxiCare’s fully equipped dental laboratory sets us apart with true start-to-finish control over every restoration.<br/>
+            <strong>Cutting-Edge Equipment:</strong> We use high-precision milling machines and industrial-grade 3D printers to fabricate crowns, bridges, dentures, and implant prosthetics with micron-level accuracy.<br/>
+            <strong>Customized Workflows:</strong> Each restoration is designed by our skilled technicians in collaboration with your dentist and tailored to your bite, anatomy, and esthetic goals.<br/>
+            <strong>Quality Assurance:</strong> Rigorous in-lab testing ensures a perfect fit, natural shade matching, and long-term durability before anything reaches your smile.
+          </p>
         </div>
         {/* Slider */}
         <div className="order-1 md:order-2">
