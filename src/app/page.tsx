@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* HERO */}
       <section className="relative h-[70vh] w-full flex items-center justify-center text-center">
         <Image
           src="https://maxicaredental-eg.com/wp-content/uploads/2023/08/dental-hero.jpg"
