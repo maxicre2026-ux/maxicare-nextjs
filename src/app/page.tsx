@@ -10,18 +10,25 @@ export default function Home() {
   ];
 
   return (
-    <section className="flex flex-col gap-12">
-      {/* Intro Text */}
-      <div className="text-center space-y-6 max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-accent">Welcome to MaxiCare Dental</h1>
-        <p className="text-lg md:text-xl leading-relaxed">
-          Comprehensive dental care platform offering advanced clinic services, in-house laboratory, and rich educational content. Explore our sections below to book appointments, submit lab tickets, or learn more about oral health.
-        </p>
-      </div>
-
-      {/* Image Cards */}
-      <div className="flex flex-wrap gap-6 justify-start md:justify-center">
-        {cards.map((card) => (
+    <>
+      {/* Hero Section */}
+      <section className="relative h-[70vh] w-full flex items-center justify-center text-center">
+        <Image
+          src="https://maxicaredental-eg.com/wp-content/uploads/2023/08/dental-hero.jpg"
+          alt="Dental Chair Hero"
+          fill
+          priority
+          className="object-cover object-center opacity-60"
+        />
+        <div className="relative z-10 max-w-3xl px-4 space-y-6">
+          <p className="text-sm uppercase tracking-widest text-accent">Your Smile, Our Priority</p>
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-white">
+            Comprehensive Dental Care at
+            <br /> MAXICARE
+          </h1>
+          <p className="text-base md:text-lg text-white/90">
+            Experience exceptional dental care tailored to your needs, from routine check-ups to cosmetic enhancements and emergency services.
+          </p>
           <Link
             key={card.href}
             href={card.href}
