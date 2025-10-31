@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased bg-background text-accent`}>
         <SessionProviderWrapper>
           <Navbar />
-          <main className="min-h-screen max-w-7xl mx-auto px-4 py-8">{children}</main>
+          <main className="min-h-screen">{children}</main>
           <Footer />
         </SessionProviderWrapper>
       </body>
