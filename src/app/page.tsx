@@ -15,7 +15,7 @@ export default function Home() {
       <section className="relative h-[70vh] w-full flex items-center justify-center text-center">
         <Image
           src="https://maxicaredental-eg.com/wp-content/uploads/2023/08/dental-hero.jpg"
-          alt="Dental Chair Hero"
+          alt="Dental Hero"
           fill
           priority
           className="object-cover object-center opacity-60"
@@ -30,12 +30,10 @@ export default function Home() {
             Experience exceptional dental care tailored to your needs, from routine check-ups to cosmetic enhancements and emergency services.
           </p>
           <Link
-            key={card.href}
-            href={card.href}
-            className="relative w-80 h-48 rounded-lg overflow-hidden group"
+            href="/clinic"
+            className="inline-block border border-accent text-accent px-8 py-3 rounded font-semibold hover:bg-accent hover:text-black transition-colors"
           >
-            <Image
-              src={card.img}
+            BOOK NOW
               alt={card.label}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
