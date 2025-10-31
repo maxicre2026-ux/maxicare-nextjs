@@ -34,16 +34,29 @@ export default function Home() {
             className="inline-block border border-accent text-accent px-8 py-3 rounded font-semibold hover:bg-accent hover:text-black transition-colors"
           >
             BOOK NOW
-              alt={card.label}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <span className="absolute inset-0 bg-black/50 flex items-center justify-center text-accent font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-              {card.label}
-            </span>
           </Link>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center text-accent mb-10">Our Services</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {cards.map((c) => (
+            <Link key={c.href} href={c.href} className="relative h-56 rounded overflow-hidden group">
+              <Image
+                src={c.img}
+                alt={c.label}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="absolute inset-0 bg-black/50 flex items-center justify-center text-xl font-semibold text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                {c.label}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
