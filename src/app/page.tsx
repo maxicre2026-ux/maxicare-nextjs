@@ -15,13 +15,8 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative h-[70vh] w-full flex items-center justify-center text-center">
-        <Image
-          src="https://maxicaredental-eg.com/wp-content/uploads/2023/08/dental-hero.jpg"
-          alt="Dental Hero"
-          fill
-          priority
-          className="object-cover object-center opacity-60"
+      <section className="relative h-[70vh] w-full flex items-center justify-center text-center bg-[url('/assets/hero.jpg')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/60" />
         />
         <div className="relative z-10 max-w-3xl px-4 space-y-6">
           <p className="text-sm uppercase tracking-widest text-accent">Your Smile, Our Priority</p>
