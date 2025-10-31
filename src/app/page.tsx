@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import StatsSection from "@/components/home/StatsSection";
+import StorySection from "@/components/home/StorySection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
 
 export default function Home() {
   const cards = [
@@ -57,6 +60,15 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* STATS */}
+      <StatsSection />
+
+      {/* STORY */}
+      <StorySection />
+
+      {/* TESTIMONIALS */}
+      <TestimonialsSection />
     </>
   );
 }
