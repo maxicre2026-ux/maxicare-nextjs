@@ -45,7 +45,7 @@ export default function Home() {
                 src={c.img}
                 alt={c.label}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                className="object-cover object-top opacity-60 transition-transform duration-300"
               />
               <span className="absolute inset-0 bg-black/50 flex items-center justify-center text-xl font-semibold text-accent opacity-0 group-hover:opacity-100 transition-opacity">
                 {c.label}
