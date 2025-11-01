@@ -1,6 +1,7 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import MediaSlider, { MediaItem } from "@/components/MediaSlider";
 import BookingCalendar from "@/components/BookingCalendar";
 import BookingHistory from "@/components/BookingHistory"; // تأكد أنّ الملف موجود بنفس الاسم
