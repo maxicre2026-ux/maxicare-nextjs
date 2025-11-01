@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative h-[90vh] w-full flex items-center justify-center text-center bg-[url('/assets/hero.jpg')] bg-cover bg-top">
+      <section className="relative h-screen w-full flex items-center justify-center text-center bg-[url('/assets/hero.jpg')] bg-cover bg-top">
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-3xl px-4 space-y-6">
           <p className="text-sm uppercase tracking-widest text-accent">Your Smile, Our Priority</p>
