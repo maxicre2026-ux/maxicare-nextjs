@@ -4,10 +4,9 @@ import Image from "next/image";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Clinic", href: "/clinic" },
+  { label: "Lab", href: "/lab" },
+  { label: "Education", href: "/education" },
 ];
 
 export default function Navbar() {
