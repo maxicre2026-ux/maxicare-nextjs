@@ -27,7 +27,7 @@ export default function TestimonialsSection() {
         {partners.map((t) => (
           <div key={t.name} className="border border-accent/30 rounded-lg p-6 bg-neutral-900/60 space-y-4">
             <div className="flex flex-col items-center gap-3">
-              <Image src={t.img} alt={t.name} width={300} height={220} className="w-full h-56 object-cover rounded" />
+              <Image src={t.img} alt={t.name} width={300} height={220} className="w-full h-56 object-contain rounded" />
               <p className="pt-4 font-semibold text-center text-sm md:text-base">{t.name}</p>
               <p className="text-white/80 text-sm leading-relaxed">{t.text}</p>
             </div>
