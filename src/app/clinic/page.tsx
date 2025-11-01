@@ -70,7 +70,7 @@ export default function ClinicPage() {
 
       {/* Overview */}
       <section className="relative mt-16 overflow-hidden rounded-lg">
-        <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-top opacity-40" />
+        <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-40" />
         <div className="relative z-10 p-8 md:p-12 max-w-4xl mx-auto space-y-4 text-white">
           <p>
             At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
