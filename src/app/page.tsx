@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
+import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
 import StorySection from "@/components/home/StorySection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700"] });
 
 export default function Home() {
   const cards = [
@@ -18,11 +21,11 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-3xl px-4 space-y-6">
           <p className="text-sm uppercase tracking-widest text-accent">Your Smile, Our Priority</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-white">
+          <h1 className={`text-4xl md:text-5xl font-extrabold leading-tight text-accent ${playfair.className}`}>
             Comprehensive Dental Care at
             <br /> MAXICARE
           </h1>
-          <p className="text-base md:text-lg text-white/90">
+          <p className="text-base md:text-lg text-accent/90">
             Experience exceptional dental care tailored to your needs, from routine check-ups to cosmetic enhancements and emergency services.
           </p>
           <Link
