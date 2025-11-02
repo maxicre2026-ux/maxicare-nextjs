@@ -6,16 +6,24 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await signIn("clinic", { ...form, callbackUrl: "/admin/clinic" });
+    const res = await signIn("clinic", { ...form, redirect: false });
+    if (res?.error) {
+      setError("Incorrect email or password");
+      return;
+    }
+    // success -> rely on middleware for proper redirect
+    router.push("/admin/clinic");
   }
 
   return (
     <div className="max-w-sm mx-auto py-10 space-y-6">
       <h1 className="text-2xl font-bold text-accent">Login</h1>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
           { id: "email", label: "Email", type: "email" },
