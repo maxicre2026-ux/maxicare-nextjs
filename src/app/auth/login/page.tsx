@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signIn, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -10,13 +10,7 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await signIn("clinic", { ...form, redirect: false });
-    if (!res?.error) {
-      const session = await getSession();
-      const role = (session?.user as any)?.role;
-      if (role === "LAB_ADMIN") router.push("/lab");
-      else router.push("/clinic");
-    }
+    await signIn("clinic", { ...form, callbackUrl: "/admin/clinic" });
   }
 
   return (
