@@ -9,5 +9,15 @@ await prisma.user.upsert({
   update: {},
   create: { name: "Admin", email: "admin@maxi.com", password: hash, role: "ADMIN" },
 });
-console.log("Admin created  →  admin@maxi.com / pass1234");
+await prisma.user.upsert({
+  where: { email: "clinicadmin@maxi.com" },
+  update: {},
+  create: { name: "Clinic Admin", email: "clinicadmin@maxi.com", password: hash, role: "ADMIN" },
+});
+await prisma.user.upsert({
+  where: { email: "labadmin@maxi.com" },
+  update: {},
+  create: { name: "Lab Admin", email: "labadmin@maxi.com", password: hash, role: "LAB_CLIENT" },
+});
+console.log("Users created → clinicadmin@maxi.com, labadmin@maxi.com / pass1234");
 process.exit(0);
