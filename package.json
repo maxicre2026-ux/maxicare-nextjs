@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prisma:seed": "node prisma/seed.mjs",
+    "postinstall": "npm run prisma:seed"
   },
   "dependencies": {
     "@prisma/client": "^6.17.0",
