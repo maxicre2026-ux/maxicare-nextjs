@@ -15,7 +15,28 @@ async function main() {
       role: "ADMIN",
     },
   });
-  console.log("Admin created => admin@maxi.com / pass1234");
+    await prisma.user.upsert({
+    where: { email: "clinicadmin@maxi.com" },
+    update: {},
+    create: {
+      name: "Clinic Admin",
+      email: "clinicadmin@maxi.com",
+      password: hash,
+      role: "CLINIC_ADMIN",
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email: "labadmin@maxi.com" },
+    update: {},
+    create: {
+      name: "Lab Admin",
+      email: "labadmin@maxi.com",
+      password: hash,
+      role: "LAB_ADMIN",
+    },
+  });
+  console.log("Users created => clinicadmin@maxi.com, labadmin@maxi.com / pass1234");
 }
 
 main()
