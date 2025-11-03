@@ -11,19 +11,29 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await signIn("clinic", { ...form, redirect: false, callbackUrl: "/admin/clinic" });
-    if (res?.error) {
-      setError("Incorrect email or password");
-      return;
+    console.log("Submitting login for:", form.email);
+    try {
+      const res = await signIn("clinic", {
+        ...form,
+        redirect: false,
+        callbackUrl: "/admin/clinic",
+      });
+      console.log("signIn response:", res);
+      if (res?.error) {
+        setError("Incorrect email or password");
+        return;
+      }
+      if (res?.url) {
+        console.log("Redirecting to:", res.url);
+        router.replace(res.url);
+      } else {
+        console.log("Fallback redirect to /admin/clinic");
+        router.replace("/admin/clinic");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong. Try again.");
     }
-    if (res?.url) router.replace(res.url);
-    else router.replace("/admin/clinic");
-    if (res?.error) {
-      setError("Incorrect email or password");
-      return;
-    }
-    // success -> rely on middleware for proper redirect
-    // router.push("/admin/clinic");
   }
 
   return (
