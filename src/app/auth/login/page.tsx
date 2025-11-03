@@ -25,10 +25,10 @@ export default function LoginPage() {
       }
       if (res?.url) {
         console.log("Redirecting to:", res.url);
-        router.replace(res.url);
+        window.location.replace(res.url);
       } else {
         console.log("Fallback redirect to /admin/clinic");
-        router.replace("/admin/clinic");
+        window.location.replace("/admin/clinic");
       }
     } catch (err) {
       console.error("Login error:", err);
