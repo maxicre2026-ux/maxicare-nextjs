@@ -7,7 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== "GET") return res.status(405).end();
 
   const session = await getServerSession(req, res, authOptions);
-  if (!session || (session.user as any).role !== "ADMIN")
+  const role = (session?.user as any)?.role;
+  if (!session || (role !== "ADMIN" && role !== "LAB_CLIENT"))
     return res.status(403).json({ error: "Forbidden" });
 
   try {

@@ -11,7 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } = req;
 
   const session = await getServerSession(req, res, authOptions);
-  if (!session || (session.user as any).role !== "ADMIN")
+  const role = (session?.user as any)?.role;
+  if (!session || (role !== "ADMIN" && role !== "LAB_CLIENT"))
     return res.status(403).json({ error: "Forbidden" });
 
   if (method !== "PATCH") return res.status(405).end();
