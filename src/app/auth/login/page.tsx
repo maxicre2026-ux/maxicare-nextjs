@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -28,8 +28,22 @@ export default function LoginPage() {
     }
     
     if (res?.ok) {
-      // Login successful, redirect to /admin (middleware will handle role-based redirect)
-      window.location.href = "/admin";
+      // Fetch session to get user role
+      const sessionRes = await fetch("/api/auth/session");
+      const session = await sessionRes.json();
+      const role = session?.user?.role;
+      
+      console.log("User role:", role);
+      
+      // Redirect based on role
+      if (role === "ADMIN") {
+        window.location.href = "/admin/clinic";
+      } else if (role === "LAB_CLIENT") {
+        window.location.href = "/admin/lab";
+      } else {
+        // Regular user -> clinic page
+        window.location.href = "/clinic";
+      }
     }
   }
 

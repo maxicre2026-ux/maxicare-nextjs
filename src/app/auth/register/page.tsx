@@ -24,8 +24,8 @@ export default function RegisterPage() {
       body: JSON.stringify(form),
     });
     if (res.ok) {
-      await signIn("credentials", { email: form.email, password: form.password, callbackUrl: "/" });
-      router.push("/");
+      await signIn("credentials", { email: form.email, password: form.password, redirect: false });
+      window.location.href = "/clinic";
     } else {
       const data = await res.json();
       setError(data.error || "Registration failed");
