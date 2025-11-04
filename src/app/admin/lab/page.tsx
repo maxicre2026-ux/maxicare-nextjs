@@ -98,10 +98,10 @@ export default function LabAdminPage() {
   const { data: session, status } = useSession();
   const [tickets, setTickets] = useState<TicketRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const isAdmin = session?.user && (session.user as any).role === "ADMIN";
+  const isLabAdmin = session?.user && ((session.user as any).role === "LAB_CLIENT" || (session.user as any).role === "ADMIN");
 
   useEffect(() => {
-    if (!isAdmin) return;
+    if (!isLabAdmin) return;
     async function load() {
       const res = await fetch("/api/admin/lab/tickets");
       if (res.ok) {
@@ -111,10 +111,10 @@ export default function LabAdminPage() {
       setLoading(false);
     }
     load();
-  }, [isAdmin]);
+  }, [isLabAdmin]);
 
   if (status === "loading") return <p className="p-6">Checking auth…</p>;
-  if (!isAdmin) return <p className="p-6">Access denied</p>;
+  if (!isLabAdmin) return <p className="p-6">Access denied</p>;
 
   return (
     <section className="p-6 space-y-6">
