@@ -27,6 +27,8 @@ export default function ClinicAdminPage() {
   const [loading, setLoading] = useState(true);
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [payInputs, setPayInputs] = useState<Record<string, string>>({});
+  const [uploadStatus, setUploadStatus] = useState<Record<string, string>>({});
+  const [uploadingId, setUploadingId] = useState<string | null>(null);
 
   // redirect non-admin
   useEffect(() => {
@@ -72,19 +74,36 @@ export default function ClinicAdminPage() {
   }
 
   async function uploadReport(id: string, file: File) {
+    setUploadingId(id);
+    setUploadStatus({ ...uploadStatus, [id]: "جاري الرفع..." });
+    
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch(`/api/admin/appointments/${id}/report`, {
-      method: "POST",
-      body: form,
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setList((prev) =>
-        prev.map((a) =>
-          a.id === id ? { ...a, reportFiles: [{ filename: data.filename }] } : a
-        )
-      );
+    
+    try {
+      const res = await fetch(`/api/admin/appointments/${id}/report`, {
+        method: "POST",
+        body: form,
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setList((prev) =>
+          prev.map((a) =>
+            a.id === id ? { ...a, reportFiles: [{ filename: data.filename }] } : a
+          )
+        );
+        setUploadStatus({ ...uploadStatus, [id]: "✅ تم رفع التقرير بنجاح" });
+        setTimeout(() => setUploadStatus({}), 3000);
+      } else {
+        setUploadStatus({ ...uploadStatus, [id]: "❌ فشل رفع التقرير" });
+        setTimeout(() => setUploadStatus({}), 3000);
+      }
+    } catch (err) {
+      setUploadStatus({ ...uploadStatus, [id]: "❌ خطأ في الرفع" });
+      setTimeout(() => setUploadStatus({}), 3000);
+    } finally {
+      setUploadingId(null);
     }
   }
 
@@ -104,15 +123,32 @@ export default function ClinicAdminPage() {
   }
 
   async function uploadPrescription(id: string, file: File) {
+    setUploadingId(id);
+    setUploadStatus({ ...uploadStatus, [id]: "جاري رفع الوصفة..." });
+    
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch(`/api/admin/appointments/${id}/prescription`, {
-      method: "POST",
-      body: form,
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setList((prev) => prev.map((a) => (a.id === id ? { ...a, prescriptionFile: data.prescriptionFile } : a)));
+    
+    try {
+      const res = await fetch(`/api/admin/appointments/${id}/prescription`, {
+        method: "POST",
+        body: form,
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setList((prev) => prev.map((a) => (a.id === id ? { ...a, prescriptionFile: data.prescriptionFile } : a)));
+        setUploadStatus({ ...uploadStatus, [id]: "✅ تم رفع الوصفة بنجاح" });
+        setTimeout(() => setUploadStatus({}), 3000);
+      } else {
+        setUploadStatus({ ...uploadStatus, [id]: "❌ فشل رفع الوصفة" });
+        setTimeout(() => setUploadStatus({}), 3000);
+      }
+    } catch (err) {
+      setUploadStatus({ ...uploadStatus, [id]: "❌ خطأ في الرفع" });
+      setTimeout(() => setUploadStatus({}), 3000);
+    } finally {
+      setUploadingId(null);
     }
   }
 
@@ -139,6 +175,7 @@ export default function ClinicAdminPage() {
             const d = new Date(a.date);
             const dateStr = d.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
             return (
+              <>
               <tr key={a.id} className="border-b border-accent/10">
                 <td className="py-2">{dateStr}</td>
                 <td className="py-2">
@@ -237,9 +274,18 @@ export default function ClinicAdminPage() {
                       const f = e.target.files?.[0];
                       if (f) uploadReport(a.id, f);
                     }}
+                    disabled={uploadingId === a.id}
                   />
                 </td>
               </tr>
+              {uploadStatus[a.id] && (
+                <tr>
+                  <td colSpan={8} className="py-2 text-center text-sm font-semibold text-accent">
+                    {uploadStatus[a.id]}
+                  </td>
+                </tr>
+              )}
+              </>
             );
           })}
         </tbody>
