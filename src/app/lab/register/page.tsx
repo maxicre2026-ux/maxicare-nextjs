@@ -24,8 +24,8 @@ export default function LabRegisterPage() {
       body: JSON.stringify(form),
     });
     if (res.ok) {
-      await signIn("lab", { email: form.email, password: form.password, callbackUrl: "/lab" });
-      router.push("/lab");
+      await signIn("credentials", { email: form.email, password: form.password, redirect: false });
+      window.location.href = "/lab";
     } else {
       const data = await res.json();
       setError(data.error || "Registration failed");

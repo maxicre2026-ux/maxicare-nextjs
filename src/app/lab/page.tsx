@@ -85,11 +85,6 @@ export default function LabPage() {
     setSubmitting(false);
   }
 
-  // access guard
-  if (status === "authenticated" && (session?.user as any).role !== "LAB_CLIENT" && (session?.user as any).role !== "ADMIN") {
-    return <p className="p-6">Access denied.</p>;
-  }
-
   return (
     <section className="space-y-10 py-8">
       {/* Hero + Slider */}

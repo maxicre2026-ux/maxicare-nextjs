@@ -11,9 +11,9 @@ export default function LabLoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await signIn("lab", { ...form, redirect: false, callbackUrl: "/lab" });
+    const res = await signIn("credentials", { ...form, redirect: false });
     if (!res?.error) {
-      router.push("/lab");
+      window.location.href = "/lab";
     } else {
       setError("Invalid credentials");
     }
