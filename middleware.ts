@@ -5,8 +5,12 @@ import { getToken } from 'next-auth/jwt';
 // Middleware to protect admin routes based on user role
 export async function middleware(req: NextRequest) {
   // Retrieve JWT session (requires NEXTAUTH_SECRET in env)
-  const session = await getToken({ req });
-  const role = (session?.user as any)?.role as string | undefined;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const role = token?.role as string | undefined;
+  
+  console.log('Middleware - Path:', req.nextUrl.pathname);
+  console.log('Middleware - Token:', token ? 'exists' : 'missing');
+  console.log('Middleware - Role:', role);
 
   const { pathname } = req.nextUrl;
   const isLabAdminPage = pathname.startsWith('/admin/lab');
