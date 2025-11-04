@@ -55,7 +55,7 @@ export default function BookingHistory() {
               <td className="py-2">
                 {b.reportFiles?.length > 0 ? (
                   <a
-                    href={`/reports/${b.reportFiles[0].filename}`}
+                    href={b.reportFiles[0].filename}
                     target="_blank"
                     className="underline text-accent"
                   >
