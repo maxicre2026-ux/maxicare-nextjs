@@ -13,7 +13,7 @@ export default function LoginPage() {
     e.preventDefault();
     console.log("Submitting login for:", form.email);
     try {
-      const res = await signIn("clinic", {
+      const res = await signIn("credentials", {
         ...form,
         redirect: false,
         callbackUrl: "/admin/clinic",
