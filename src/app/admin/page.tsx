@@ -170,7 +170,7 @@ export default function AdminPage() {
                 <td className="py-2">
                   {a.reportFiles.length > 0 ? (
                     <a
-                      href={`/reports/${a.reportFiles[0].filename}`}
+                      href={a.reportFiles[0].filename}
                       target="_blank"
                       className="underline text-accent"
                     >

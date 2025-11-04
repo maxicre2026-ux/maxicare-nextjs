@@ -17,7 +17,7 @@ export const config = {
 const handler = nextConnect<NextApiRequest, NextApiResponse>({ onError })
   .use(async (req, res, next) => {
     const session = await getServerSession(req, res, authOptions);
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session || (session.user as any).role !== "ADMIN") {
       res.status(401).json({ error: "Unauthorized" });
       return;
     }
@@ -46,7 +46,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>({ onError })
       data: { filename: blob.url, appointmentId: id },
     });
 
-    res.json({ ok: true, url: blob.url });
+    res.json({ ok: true, filename: blob.url });
   });
 
 export default handler;
