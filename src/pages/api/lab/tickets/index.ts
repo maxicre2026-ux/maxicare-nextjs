@@ -13,13 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const session = await getServerSession(req, res, authOptions as any);
   if (!session) return res.status(401).json({ error: "Unauthenticated" });
 
-  const role = (session.user as any).role;
-  if (role !== "LAB_CLIENT" && role !== "ADMIN")
-    return res.status(403).json({ error: "Forbidden" });
-
   if (req.method === "GET") {
+    // Users can only see their own tickets
     const tickets = await prisma.ticket.findMany({
-      where: role === "ADMIN" ? {} : { userId: session.user.id as string },
+      where: { userId: session.user.id as string },
       include: { messages: true, files: true },
       orderBy: { createdAt: "desc" },
     });

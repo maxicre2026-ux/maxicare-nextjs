@@ -46,10 +46,8 @@ export default function LabPage() {
 
   useEffect(() => {
     if (status !== "authenticated") return;
-    const role = (session?.user as any).role;
-    if (role !== "LAB_CLIENT" && role !== "ADMIN") return;
     loadTickets();
-  }, [status, session?.user]);
+  }, [status]);
 
   async function createTicket(e: React.FormEvent) {
     e.preventDefault();
