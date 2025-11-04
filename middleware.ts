@@ -20,18 +20,26 @@ export async function middleware(req: NextRequest) {
   }
 
   // Role-based access control
-  // Clinic admin trying to access lab panel
-  if (role === 'CLINIC_ADMIN' && isLabAdminPage) {
-    return NextResponse.redirect(new URL('/clinic', req.url));
+  // ADMIN = Clinic admin, LAB_CLIENT = Lab admin
+  
+  // Clinic admin (ADMIN) trying to access lab panel
+  if (role === 'ADMIN' && isLabAdminPage) {
+    return NextResponse.redirect(new URL('/admin/clinic', req.url));
   }
 
-  // Lab admin opening root /admin? redirect to lab panel
-  if (role === 'LAB_ADMIN' && isRootAdmin) {
+  // Clinic admin at root /admin? redirect to clinic panel
+  if (role === 'ADMIN' && isRootAdmin) {
+    return NextResponse.redirect(new URL('/admin/clinic', req.url));
+  }
+
+  // Lab admin (LAB_CLIENT) opening root /admin? redirect to lab panel
+  if (role === 'LAB_CLIENT' && isRootAdmin) {
     return NextResponse.redirect(new URL('/admin/lab', req.url));
   }
+  
   // Lab admin trying to access clinic panel
-  if (role === 'LAB_ADMIN' && isClinicAdminPage) {
-    return NextResponse.redirect(new URL('/lab', req.url));
+  if (role === 'LAB_CLIENT' && isClinicAdminPage && !isRootAdmin) {
+    return NextResponse.redirect(new URL('/admin/lab', req.url));
   }
 
   return NextResponse.next();

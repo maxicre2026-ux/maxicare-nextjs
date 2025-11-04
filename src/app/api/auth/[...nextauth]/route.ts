@@ -5,10 +5,9 @@ import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // Clinic / Admin login
     CredentialsProvider({
-      id: "clinic",
-      name: "clinic",
+      id: "credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
@@ -16,24 +15,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
         const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        if (!user || user.role === "LAB_CLIENT") return null; // deny lab accounts
-        const valid = await bcrypt.compare(credentials.password, user.password);
-        if (!valid) return null;
-        return { id: user.id, name: user.name, email: user.email, role: user.role } as any;
-      },
-    }),
-    // Lab login
-    CredentialsProvider({
-      id: "lab",
-      name: "lab",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
-        const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        if (!user || (user.role !== "LAB_CLIENT" && user.role !== "ADMIN")) return null;
+        if (!user) return null;
         const valid = await bcrypt.compare(credentials.password, user.password);
         if (!valid) return null;
         return { id: user.id, name: user.name, email: user.email, role: user.role } as any;
@@ -56,6 +38,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+  },
+  pages: {
+    signIn: "/auth/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
