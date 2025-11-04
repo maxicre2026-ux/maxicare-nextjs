@@ -220,7 +220,7 @@ export default function ClinicAdminPage() {
                 <td className="py-2">
                   {a.prescriptionFile ? (
                     <a
-                      href={`/prescriptions/${a.prescriptionFile}`}
+                      href={a.prescriptionFile}
                       target="_blank"
                       className="underline text-accent"
                     >
@@ -234,6 +234,7 @@ export default function ClinicAdminPage() {
                         const f = e.target.files?.[0];
                         if (f) uploadPrescription(a.id, f);
                       }}
+                      disabled={uploadingId === a.id}
                     />
                   )}
                 </td>

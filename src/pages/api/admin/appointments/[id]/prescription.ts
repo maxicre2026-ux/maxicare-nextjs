@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import formidable from "formidable";
 import fs from "fs";
 import path from "path";
+import { put } from "@vercel/blob";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
@@ -33,17 +34,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const file: any = Array.isArray(up) ? up[0] : up;
     if (!file || !(file as any).filepath) return res.status(400).json({ error: "file required" });
 
-    const destDir = path.join(process.cwd(), "public", "prescriptions");
-    fs.mkdirSync(destDir, { recursive: true });
-    const filename = `${Date.now()}_${file.originalFilename}`;
-    await fs.promises.copyFile((file as any).filepath, path.join(destDir, filename));
+    // Use Vercel Blob Storage
+    const ext = path.extname(file.originalFilename || "");
+    const buffer = await fs.promises.readFile(file.filepath);
+    const blob = await put(`prescriptions/${id}${ext}`, buffer, { access: "public" });
 
     await prisma.appointment.update({
       where: { id },
-      data: { prescriptionFile: filename },
+      data: { prescriptionFile: blob.url },
     });
 
-    return res.status(201).json({ prescriptionFile: filename });
+    return res.status(201).json({ prescriptionFile: blob.url });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Server error" });

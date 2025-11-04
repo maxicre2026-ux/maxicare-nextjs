@@ -183,7 +183,7 @@ export default function AdminPage() {
                 <td className="py-2">
                   {a.prescriptionFile ? (
                     <a
-                      href={`/prescriptions/${a.prescriptionFile}`}
+                      href={a.prescriptionFile}
                       target="_blank"
                       className="underline text-accent"
                     >
