@@ -14,8 +14,15 @@ export default function Navbar() {
     <header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo / Brand */}
-        <Link href="/" className="text-2xl font-extrabold text-accent tracking-widest">
-          MAXICARE
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/assets/logo.png" 
+            alt="MaxiCare Logo" 
+            width={120}
+            height={60}
+            priority
+            className="h-12 w-auto"
+          />
         </Link>
         {/* Links */}
         <ul className="hidden md:flex gap-8 text-sm font-semibold tracking-wide">
