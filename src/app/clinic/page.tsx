@@ -22,12 +22,62 @@ export default function ClinicPage() {
 
   return (
     <section className="flex flex-col gap-12">
+      {/* Overview - في الأعلى قبل كل حاجة */}
+      {status === "unauthenticated" && (
+        <section className="relative overflow-hidden rounded-lg shadow-2xl">
+          <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-30" />
+          <div className="relative z-10 p-6 md:p-10 max-w-5xl mx-auto space-y-5">
+            <p className="text-base md:text-lg text-accent font-semibold leading-relaxed">
+              At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
+            </p>
+            <ul className="space-y-3 text-sm md:text-base">
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity—so we catch issues early and plan treatments with high precision.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more, reducing bleeding and speeding healing times.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers during a single appointment.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable, natural-looking implants.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Endodontics:</strong> Rotary instrumentation and apex locators enable comfortable, high-success root-canal therapy.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Anesthesia Options:</strong> From oral sedation to full general anesthesia, your comfort is individualized.</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-bold text-lg">•</span>
+                <span className="text-accent"><strong>Comfort &amp; Safety:</strong> Ergonomic operatories and advanced sterilization keep your well-being first.</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* Hero + Slider */}
       <div className="grid md:grid-cols-2 gap-8 items-center">
         {/* Text section */}
         <div className="space-y-6 order-2 md:order-1">
           <h1 className="text-3xl md:text-4xl font-bold text-accent">Clinic</h1>
-          <p className="text-lg max-w-prose">
+          <p className="text-lg max-w-prose text-accent">
             Book your appointment online and view full reports of your previous
             visits.
           </p>
@@ -68,7 +118,7 @@ export default function ClinicPage() {
         </div>
       </div>
 
-      {/* Calendar + History (after login) - في الأعلى */}
+      {/* Calendar + History (after login) */}
       {status === "authenticated" && (
         <div className="space-y-10">
           <div className="space-y-6">
@@ -81,56 +131,6 @@ export default function ClinicPage() {
             <BookingHistory />
           </div>
         </div>
-      )}
-
-      {/* Overview - يظهر فقط لغير المسجلين */}
-      {status === "unauthenticated" && (
-        <section className="relative mt-16 overflow-hidden rounded-lg shadow-2xl">
-          <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-30" />
-          <div className="relative z-10 p-8 md:p-12 max-w-5xl mx-auto space-y-6">
-            <p className="text-lg md:text-xl text-accent font-semibold leading-relaxed">
-              At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
-            </p>
-            <ul className="space-y-4 text-base md:text-lg">
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity—so we catch issues early and plan treatments with high precision.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more, reducing bleeding and speeding healing times.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers during a single appointment.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable, natural-looking implants.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Endodontics:</strong> Rotary instrumentation and apex locators enable comfortable, high-success root-canal therapy.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Anesthesia Options:</strong> From oral sedation to full general anesthesia, your comfort is individualized.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-xl">•</span>
-                <span className="text-white"><strong className="text-accent">Comfort &amp; Safety:</strong> Ergonomic operatories and advanced sterilization keep your well-being first.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
       )}
     </section>
   );
