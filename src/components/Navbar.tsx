@@ -25,7 +25,7 @@ export default function Navbar() {
           />
         </Link>
         {/* Links */}
-        <ul className="hidden md:flex gap-8 text-lg font-semibold tracking-wide">
+        <ul className="hidden md:flex gap-8 text-lg font-bold tracking-wide">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className="text-accent hover:text-accent/80 transition-colors">
