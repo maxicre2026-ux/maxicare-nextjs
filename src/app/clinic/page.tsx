@@ -68,28 +68,7 @@ export default function ClinicPage() {
         </div>
       </div>
 
-      {/* Overview */}
-      <section className="relative mt-16 overflow-hidden rounded-lg">
-        <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-40" />
-        <div className="relative z-10 p-8 md:p-12 max-w-4xl mx-auto space-y-4 text-white">
-          <p>
-            At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
-          </p>
-          <ul className="list-disc pl-5 space-y-1 text-sm md:text-base">
-            <li><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity—so we catch issues early and plan treatments with high precision.</li>
-            <li><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more, reducing bleeding and speeding healing times.</li>
-            <li><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers during a single appointment.</li>
-            <li><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable, natural-looking implants.</li>
-            <li><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</li>
-            <li><strong>Endodontics:</strong> Rotary instrumentation and apex locators enable comfortable, high-success root-canal therapy.</li>
-            <li><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</li>
-            <li><strong>Anesthesia Options:</strong> From oral sedation to full general anesthesia, your comfort is individualized.</li>
-            <li><strong>Comfort &amp; Safety:</strong> Ergonomic operatories and advanced sterilization keep your well-being first.</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Calendar + History (after login) */}
+      {/* Calendar + History (after login) - في الأعلى */}
       {status === "authenticated" && (
         <div className="space-y-10">
           <div className="space-y-6">
@@ -102,6 +81,29 @@ export default function ClinicPage() {
             <BookingHistory />
           </div>
         </div>
+      )}
+
+      {/* Overview - يظهر فقط لغير المسجلين */}
+      {status === "unauthenticated" && (
+        <section className="relative mt-16 overflow-hidden rounded-lg">
+          <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-40" />
+          <div className="relative z-10 p-8 md:p-12 max-w-4xl mx-auto space-y-4 text-white">
+            <p>
+              At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-sm md:text-base">
+              <li><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity—so we catch issues early and plan treatments with high precision.</li>
+              <li><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more, reducing bleeding and speeding healing times.</li>
+              <li><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers during a single appointment.</li>
+              <li><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable, natural-looking implants.</li>
+              <li><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</li>
+              <li><strong>Endodontics:</strong> Rotary instrumentation and apex locators enable comfortable, high-success root-canal therapy.</li>
+              <li><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</li>
+              <li><strong>Anesthesia Options:</strong> From oral sedation to full general anesthesia, your comfort is individualized.</li>
+              <li><strong>Comfort &amp; Safety:</strong> Ergonomic operatories and advanced sterilization keep your well-being first.</li>
+            </ul>
+          </div>
+        </section>
       )}
     </section>
   );
