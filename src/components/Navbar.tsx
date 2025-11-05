@@ -12,7 +12,7 @@ const navItems = [
 export default function Navbar() {
   return (
     <header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-1">
         {/* Logo / Brand */}
         <Link href="/" className="flex items-center -ml-2">
           <Image 
@@ -28,7 +28,7 @@ export default function Navbar() {
         <ul className="hidden md:flex gap-8 text-sm font-semibold tracking-wide">
           {navItems.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className="text-white hover:text-accent transition-colors">
+              <Link href={item.href} className="text-accent hover:text-accent/80 transition-colors">
                 {item.label}
               </Link>
             </li>
