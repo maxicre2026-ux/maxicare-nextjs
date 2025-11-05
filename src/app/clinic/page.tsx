@@ -26,45 +26,45 @@ export default function ClinicPage() {
       {status === "unauthenticated" && (
         <section className="relative overflow-hidden rounded-lg shadow-2xl">
           <Image src="/assets/Clinic/clinic-slide1.jpg" alt="Dental chair" fill priority className="object-cover object-bottom opacity-30" />
-          <div className="relative z-10 p-6 md:p-10 max-w-5xl mx-auto space-y-5">
-            <p className="text-base md:text-lg text-accent font-semibold leading-relaxed">
+          <div className="relative z-10 p-4 md:p-6 max-w-5xl mx-auto space-y-3">
+            <p className="text-sm md:text-base text-accent font-semibold leading-snug">
               At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
             </p>
-            <ul className="space-y-3 text-sm md:text-base">
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
-                <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity—so we catch issues early and plan treatments with high precision.</span>
+            <ul className="space-y-2 text-xs md:text-sm">
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
+                <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
-                <span className="text-accent"><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more, reducing bleeding and speeding healing times.</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
+                <span className="text-accent"><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
-                <span className="text-accent"><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers during a single appointment.</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
+                <span className="text-accent"><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
-                <span className="text-accent"><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable, natural-looking implants.</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
+                <span className="text-accent"><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable implants.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
                 <span className="text-accent"><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
                 <span className="text-accent"><strong>Endodontics:</strong> Rotary instrumentation and apex locators enable comfortable, high-success root-canal therapy.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
                 <span className="text-accent"><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
                 <span className="text-accent"><strong>Anesthesia Options:</strong> From oral sedation to full general anesthesia, your comfort is individualized.</span>
               </li>
-              <li className="flex gap-3">
-                <span className="text-accent font-bold text-lg">•</span>
+              <li className="flex gap-2">
+                <span className="text-accent font-bold">•</span>
                 <span className="text-accent"><strong>Comfort &amp; Safety:</strong> Ergonomic operatories and advanced sterilization keep your well-being first.</span>
               </li>
             </ul>
