@@ -21,19 +21,19 @@ export default function ClinicPage() {
   }
 
   return (
-    <section className="flex flex-col gap-8 pt-12">
+    <section className="flex flex-col gap-8 pt-24">
       {/* Layout: Login شمال، النص يمين، Slider تحت */}
       {status === "unauthenticated" && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* الصف الأول: Login شمال + النص يمين */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             {/* Login buttons - الشمال */}
-            <div className="space-y-3 bg-neutral-900/50 p-5 rounded-lg border-2 border-accent/30">
+            <div className="space-y-2.5 bg-neutral-900/50 p-4 rounded-lg border-2 border-accent/30">
               <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
-              <p className="text-sm text-accent leading-relaxed">
+              <p className="text-sm text-accent leading-snug">
                 Book your appointment online and view full reports of your previous visits.
               </p>
-              <div className="flex flex-col gap-3 pt-2">
+              <div className="flex flex-col gap-2.5 pt-1">
                 <Link
                   href="/auth/login"
                   className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
@@ -50,11 +50,11 @@ export default function ClinicPage() {
             </div>
 
             {/* النص - اليمين */}
-            <div className="space-y-3 bg-black/30 p-5 rounded-lg">
-              <p className="text-xs md:text-sm text-accent font-bold leading-relaxed">
+            <div className="space-y-2.5 bg-black/30 p-4 rounded-lg">
+              <p className="text-xs md:text-sm text-accent font-bold leading-snug">
                 At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
               </p>
-              <ul className="space-y-2.5 text-xs md:text-sm">
+              <ul className="space-y-2 text-xs md:text-sm">
                 <li className="flex gap-2.5">
                   <span className="text-accent font-bold text-base">•</span>
                   <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity.</span>
@@ -85,7 +85,7 @@ export default function ClinicPage() {
 
           {/* Slider في المنتصف تحت */}
           <div className="w-full">
-            <MediaSlider items={slides} heightClass="h-[300px]" />
+            <MediaSlider items={slides} heightClass="h-[200px] md:h-[250px]" />
           </div>
         </div>
       )}
