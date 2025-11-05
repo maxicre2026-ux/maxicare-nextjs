@@ -42,7 +42,7 @@ export default function ClinicPage() {
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-accent text-black font-bold text-base py-2.5 px-6 rounded-lg text-center hover:opacity-90 transition-opacity"
+                  className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
                 >
                   REGISTER
                 </Link>
@@ -84,8 +84,8 @@ export default function ClinicPage() {
           </div>
 
           {/* Slider في المنتصف تحت */}
-          <div className="w-full">
-            <MediaSlider items={slides} heightClass="h-[200px] md:h-[250px]" />
+          <div className="w-full max-w-3xl mx-auto">
+            <MediaSlider items={slides} heightClass="h-[350px] md:h-[450px]" />
           </div>
         </div>
       )}
