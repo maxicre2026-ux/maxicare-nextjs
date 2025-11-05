@@ -52,7 +52,7 @@ export default function LabRegisterPage() {
               id={f.id}
               type={f.type}
               required={f.id !== "phone" && f.id !== "address" && f.id !== "country" ? true : false}
-              className="p-2 rounded bg-neutral-900 border border-accent/30 text-white placeholder:text-gray-400"
+              className="p-3 rounded bg-neutral-800 border-2 border-accent text-white placeholder:text-gray-400 focus:outline-none focus:border-accent/80"
               value={(form as any)[f.id]}
               onChange={(e) => setForm({ ...form, [f.id]: e.target.value })}
             />
