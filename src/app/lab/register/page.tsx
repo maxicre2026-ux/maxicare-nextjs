@@ -42,7 +42,7 @@ export default function LabRegisterPage() {
   ];
 
   return (
-    <div className="max-w-sm mx-auto py-10 space-y-6">
+    <div className="max-w-sm mx-auto py-32 space-y-6">
       <h1 className="text-2xl font-bold text-accent">Lab Register</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {fields.map((f) => (
