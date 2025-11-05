@@ -26,14 +26,15 @@ export default function ClinicPage() {
       {status === "unauthenticated" && (
         <div className="space-y-4">
           {/* الصف الأول: Login شمال + النص يمين - مع صورة خلفية */}
-          <div className="relative overflow-hidden rounded-xl">
+          <div className="relative overflow-hidden rounded-xl min-h-[500px]">
             {/* صورة الخلفية */}
             <Image 
               src="/assets/clinic-bg.jpg" 
               alt="Clinic Background" 
               fill 
               priority
-              className="object-cover opacity-20"
+              className="object-cover opacity-30"
+              sizes="100vw"
             />
             
             {/* المحتوى فوق الصورة */}
