@@ -18,10 +18,10 @@ export default function Navbar() {
           <Image 
             src="/assets/logo.png" 
             alt="MaxiCare Logo" 
-            width={120}
-            height={60}
+            width={180}
+            height={90}
             priority
-            className="h-12 w-auto"
+            className="h-16 w-auto object-contain"
           />
         </Link>
         {/* Links */}
