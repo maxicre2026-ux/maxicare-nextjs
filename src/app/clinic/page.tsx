@@ -25,10 +25,21 @@ export default function ClinicPage() {
       {/* Layout: Login شمال، النص يمين، Slider تحت */}
       {status === "unauthenticated" && (
         <div className="space-y-4">
-          {/* الصف الأول: Login شمال + النص يمين */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-            {/* Login buttons - الشمال */}
-            <div className="space-y-2.5 bg-neutral-900/50 p-4 rounded-lg border-2 border-accent/30">
+          {/* الصف الأول: Login شمال + النص يمين - مع صورة خلفية */}
+          <div className="relative overflow-hidden rounded-xl">
+            {/* صورة الخلفية */}
+            <Image 
+              src="/assets/clinic-bg.jpg" 
+              alt="Clinic Background" 
+              fill 
+              priority
+              className="object-cover opacity-20"
+            />
+            
+            {/* المحتوى فوق الصورة */}
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start p-6">
+              {/* Login buttons - الشمال */}
+              <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg border-2 border-accent/30">
               <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
               <p className="text-sm text-accent leading-snug">
                 Book your appointment online and view full reports of your previous visits.
@@ -49,8 +60,8 @@ export default function ClinicPage() {
               </div>
             </div>
 
-            {/* النص - اليمين */}
-            <div className="space-y-2.5 bg-black/30 p-4 rounded-lg">
+              {/* النص - اليمين */}
+              <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg">
               <p className="text-xs md:text-sm text-accent font-bold leading-snug">
                 At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
               </p>
@@ -80,6 +91,7 @@ export default function ClinicPage() {
                   <span className="text-accent"><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
                 </li>
               </ul>
+              </div>
             </div>
           </div>
 
