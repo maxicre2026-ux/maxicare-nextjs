@@ -47,12 +47,12 @@ export default function LabRegisterPage() {
       <form onSubmit={handleSubmit} className="space-y-4">
         {fields.map((f) => (
           <div key={f.id} className="flex flex-col gap-1">
-            <label htmlFor={f.id}>{f.label}</label>
+            <label htmlFor={f.id} className="text-accent font-semibold">{f.label}</label>
             <input
               id={f.id}
               type={f.type}
               required={f.id !== "phone" && f.id !== "address" && f.id !== "country" ? true : false}
-              className="p-2 rounded bg-background border border-accent/30"
+              className="p-2 rounded bg-neutral-900 border border-accent/30 text-white placeholder:text-gray-400"
               value={(form as any)[f.id]}
               onChange={(e) => setForm({ ...form, [f.id]: e.target.value })}
             />
