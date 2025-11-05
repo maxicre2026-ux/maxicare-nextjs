@@ -26,16 +26,17 @@ export default function ClinicPage() {
       {status === "unauthenticated" && (
         <div className="space-y-4">
           {/* الصف الأول: Login شمال + النص يمين - مع صورة خلفية */}
-          <div className="relative overflow-hidden rounded-xl min-h-[500px]">
-            {/* صورة الخلفية */}
-            <Image 
-              src="/assets/clinic-bg.jpg" 
-              alt="Clinic Background" 
-              fill 
-              priority
-              className="object-cover opacity-30"
-              sizes="100vw"
-            />
+          <div 
+            className="relative overflow-hidden rounded-xl min-h-[500px]"
+            style={{
+              backgroundImage: 'url(/assets/clinic-bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            {/* Overlay للتحكم في الشفافية */}
+            <div className="absolute inset-0 bg-black/70"></div>
             
             {/* المحتوى فوق الصورة */}
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start p-6">
