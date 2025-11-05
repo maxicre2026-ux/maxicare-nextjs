@@ -21,28 +21,28 @@ export default function ClinicPage() {
   }
 
   return (
-    <section className="flex flex-col gap-8">
+    <section className="flex flex-col gap-8 pt-12">
       {/* Layout: Login شمال، النص يمين، Slider تحت */}
       {status === "unauthenticated" && (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* الصف الأول: Login شمال + النص يمين */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             {/* Login buttons - الشمال */}
-            <div className="space-y-4 bg-neutral-900/50 p-6 rounded-lg border-2 border-accent/30">
-              <h1 className="text-3xl md:text-4xl font-bold text-accent">Clinic</h1>
-              <p className="text-base text-accent leading-relaxed">
+            <div className="space-y-3 bg-neutral-900/50 p-5 rounded-lg border-2 border-accent/30">
+              <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
+              <p className="text-sm text-accent leading-relaxed">
                 Book your appointment online and view full reports of your previous visits.
               </p>
-              <div className="flex flex-col gap-4 pt-4">
+              <div className="flex flex-col gap-3 pt-2">
                 <Link
                   href="/auth/login"
-                  className="border-2 border-accent text-accent py-3 px-8 rounded-lg text-center font-bold text-lg hover:bg-accent hover:text-black transition-colors"
+                  className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
                 >
                   LOGIN
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-accent text-black font-bold text-lg py-3 px-8 rounded-lg text-center hover:opacity-90 transition-opacity"
+                  className="bg-accent text-black font-bold text-base py-2.5 px-6 rounded-lg text-center hover:opacity-90 transition-opacity"
                 >
                   REGISTER
                 </Link>
@@ -50,8 +50,8 @@ export default function ClinicPage() {
             </div>
 
             {/* النص - اليمين */}
-            <div className="space-y-4 bg-black/30 p-6 rounded-lg">
-              <p className="text-sm md:text-base text-accent font-bold leading-relaxed">
+            <div className="space-y-3 bg-black/30 p-5 rounded-lg">
+              <p className="text-xs md:text-sm text-accent font-bold leading-relaxed">
                 At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
               </p>
               <ul className="space-y-2.5 text-xs md:text-sm">
@@ -85,7 +85,7 @@ export default function ClinicPage() {
 
           {/* Slider في المنتصف تحت */}
           <div className="w-full">
-            <MediaSlider items={slides} heightClass="h-[400px]" />
+            <MediaSlider items={slides} heightClass="h-[300px]" />
           </div>
         </div>
       )}
