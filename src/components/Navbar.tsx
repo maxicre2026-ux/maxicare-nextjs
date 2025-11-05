@@ -12,16 +12,16 @@ const navItems = [
 export default function Navbar() {
   return (
     <header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-6">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Logo / Brand */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center -ml-2">
           <Image 
             src="/assets/logo.png" 
             alt="MaxiCare Logo" 
             width={540}
             height={270}
             priority
-            className="h-48 w-auto object-contain"
+            className="h-40 w-auto object-contain"
           />
         </Link>
         {/* Links */}
