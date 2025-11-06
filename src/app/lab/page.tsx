@@ -97,7 +97,7 @@ export default function LabPage() {
             style={{
               backgroundImage: 'url(/assets/lab-bg.jpg)',
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: 'bottom',
               backgroundRepeat: 'no-repeat'
             }}
           >
