@@ -96,7 +96,7 @@ export default function LabPage() {
             className="relative overflow-hidden min-h-[300px] md:min-h-[400px] w-screen"
             style={{
               backgroundImage: 'url(/assets/lab-bg.jpg)',
-              backgroundSize: 'contain',
+              backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}

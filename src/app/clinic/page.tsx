@@ -30,7 +30,7 @@ export default function ClinicPage() {
             className="relative overflow-hidden min-h-[300px] md:min-h-[400px] w-screen"
             style={{
               backgroundImage: 'url(/assets/clinic-bg.jpg)',
-              backgroundSize: 'contain',
+              backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
