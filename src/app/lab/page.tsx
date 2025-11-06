@@ -93,7 +93,7 @@ export default function LabPage() {
         <div className="space-y-4 -mx-4 md:-mx-8">
           {/* Hero Section مع صورة خلفية */}
           <div 
-            className="relative overflow-hidden min-h-[500px] md:min-h-[600px] w-screen"
+            className="relative overflow-hidden min-h-[450px] md:min-h-[550px] w-screen"
             style={{
               backgroundImage: 'url(/assets/lab-bg.jpg)',
               backgroundSize: '100% auto',
