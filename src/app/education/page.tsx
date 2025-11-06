@@ -9,26 +9,41 @@ export default function EducationPage() {
   ];
 
   return (
-    <section className="space-y-10 py-8">
-      {/* Hero */}
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        {/* Text */}
-        <div className="space-y-6 order-2 md:order-1">
-          <h2 className="text-3xl font-bold text-accent">Expand Your Dental Knowledge</h2>
-          <p className="text-lg max-w-prose">
-            Explore articles, videos and tutorials prepared by MaxiCare experts to keep you up-to-date
-            with the latest techniques and best practices.
-          </p>
+    <section className="flex flex-col gap-8 pt-20">
+      {/* Hero Section مع صورة خلفية */}
+      <div className="space-y-4 -mx-4 md:-mx-8">
+        <div 
+          className="relative overflow-hidden min-h-[350px] md:min-h-[450px] w-screen"
+          style={{
+            backgroundImage: 'url(/assets/education-bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Overlay للتحكم في الشفافية */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* المحتوى فوق الصورة */}
+          <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center justify-center text-center p-6 py-16 md:py-20">
+            <h1 className="text-3xl md:text-4xl font-bold text-accent mb-4">Expand Your Dental Knowledge</h1>
+            <p className="text-base md:text-lg text-accent max-w-3xl leading-relaxed">
+              Explore articles, videos and tutorials prepared by MaxiCare experts to keep you up-to-date with the latest techniques and best practices in implantology, periodontology, and esthetic dentistry.
+            </p>
+          </div>
         </div>
-        {/* Slider */}
-        <div className="order-1 md:order-2">
-          <MediaSlider items={slides} heightClass="h-[300px]" />
+
+        {/* Slider في المنتصف تحت */}
+        <div className="w-full max-w-3xl mx-auto">
+          <MediaSlider items={slides} heightClass="h-[350px] md:h-[450px]" />
         </div>
       </div>
 
       {/* Resources placeholder */}
-      <h3 className="text-2xl font-semibold text-accent">Featured Resources</h3>
-      <p>Coming soon: interactive courses, downloadable guides, and webinar recordings.</p>
+      <div className="text-center space-y-4 py-8">
+        <h3 className="text-2xl font-semibold text-accent">Featured Resources</h3>
+        <p className="text-accent/80">Coming soon: interactive courses, downloadable guides, and webinar recordings.</p>
+      </div>
     </section>
   );
 }
