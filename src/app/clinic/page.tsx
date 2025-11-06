@@ -27,7 +27,7 @@ export default function ClinicPage() {
         <div className="space-y-4 -mx-4 md:-mx-8">
           {/* الصف الأول: Login شمال + النص يمين - مع صورة خلفية */}
           <div 
-            className="relative overflow-hidden min-h-[500px] w-screen"
+            className="relative overflow-hidden min-h-[600px] md:min-h-[700px] w-screen"
             style={{
               backgroundImage: 'url(/assets/clinic-bg.jpg)',
               backgroundSize: 'cover',
@@ -39,7 +39,7 @@ export default function ClinicPage() {
             <div className="absolute inset-0 bg-black/40"></div>
             
             {/* المحتوى فوق الصورة */}
-            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-start p-6">
+            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-20 md:py-32">
               {/* Login buttons - الشمال */}
               <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg border-2 border-accent/30">
               <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
