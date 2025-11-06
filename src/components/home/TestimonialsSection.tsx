@@ -27,13 +27,13 @@ export default function TestimonialsSection() {
       <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
         {partners.map((t) => (
           <div key={t.name} className="border border-accent/30 rounded-lg bg-neutral-900/60 overflow-hidden space-y-0 h-full">
-            <div className="flex flex-col items-center gap-2 p-4">
+            <div className="flex flex-col items-center p-4">
               <Image src={t.img} alt={t.name} width={300} height={220} className="w-full h-48 object-contain object-center" />
-              <div className="pt-4 text-center">
+              <div className="pt-2 text-center">
                 <p className="font-semibold text-sm md:text-base">{t.name}</p>
-                {(t as any).title && <p className="text-accent/80 text-xs mt-1">{(t as any).title}</p>}
+                {(t as any).title && <p className="text-accent/80 text-xs">{(t as any).title}</p>}
               </div>
-              <p className="text-white/80 text-xs leading-relaxed text-justify">{t.text}</p>
+              <p className="text-white/80 text-xs leading-snug text-justify pt-2">{t.text}</p>
             </div>
           </div>
         ))}
