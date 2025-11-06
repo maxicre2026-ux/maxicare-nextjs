@@ -187,19 +187,12 @@ export default function LabPage() {
         </div>
       )}
 
-      {/* Lab Tickets Section */}
-      <h1 className="text-3xl md:text-4xl font-bold text-accent mb-4">Lab Tickets</h1>
-
       {/* Auth states */}
       {status === "loading" && <p>Loading…</p>}
-      {status === "unauthenticated" && (
-        <p className="text-accent">
-          Please login or register above to create tickets.
-        </p>
-      )}
 
       {status === "authenticated" && (
-        <>
+        <div className="space-y-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-accent">Lab Tickets</h1>
           {/* Create ticket form */}
           <div className="border border-accent/40 p-6 rounded space-y-4 max-w-xl">
             <h2 className="text-xl font-semibold text-accent">Create New Ticket</h2>
@@ -294,7 +287,7 @@ export default function LabPage() {
               </table>
             )}
           </div>
-        </>
+        </div>
       )}
     </section>
   );
