@@ -93,7 +93,7 @@ export default function LabPage() {
         <div className="space-y-4 -mx-4 md:-mx-8">
           {/* Hero Section مع صورة خلفية */}
           <div 
-            className="relative overflow-hidden min-h-[400px] md:min-h-[500px] w-screen"
+            className="relative overflow-hidden min-h-[300px] md:min-h-[400px] w-screen"
             style={{
               backgroundImage: 'url(/assets/lab-bg.jpg)',
               backgroundSize: 'contain',
@@ -105,7 +105,7 @@ export default function LabPage() {
             <div className="absolute inset-0 bg-black/40"></div>
             
             {/* المحتوى فوق الصورة */}
-            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-12 md:py-16">
+            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-8 md:py-12">
               {/* Login buttons - الشمال */}
               <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg border-2 border-accent/30">
                 <h1 className="text-2xl md:text-3xl font-bold text-accent">Lab</h1>
