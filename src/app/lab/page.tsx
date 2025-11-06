@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import MediaSlider, { MediaItem } from "@/components/MediaSlider";
 import { signOut } from "next-auth/react";
 
@@ -86,43 +87,119 @@ export default function LabPage() {
   }
 
   return (
-    <section className="space-y-10 py-8">
-      {/* Hero + Slider */}
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        {/* Text */}
-        <div className="space-y-6 order-2 md:order-1">
-          <h2 className="text-3xl font-bold text-accent">Welcome to Our Lab</h2>
-          <p className="text-lg max-w-prose space-y-2">
-            MaxiCare’s fully equipped dental laboratory sets us apart with true start-to-finish control over every restoration.<br/>
-            <strong>Cutting-Edge Equipment:</strong> We use high-precision milling machines and industrial-grade 3D printers to fabricate crowns, bridges, dentures, and implant prosthetics with micron-level accuracy.<br/>
-            <strong>Customized Workflows:</strong> Each restoration is designed by our skilled technicians in collaboration with your dentist and tailored to your bite, anatomy, and esthetic goals.<br/>
-            <strong>Quality Assurance:</strong> Rigorous in-lab testing ensures a perfect fit, natural shade matching, and long-term durability before anything reaches your smile.<br/>
-            <br/>
-            <strong>Services We Offer</strong><br/>
-            <em>Nationwide (Egypt):</em> Clinics in Egypt can order finished restorations or individual units (crowns, bridges, veneers, surgical guides, hybrid restorations) through our platforms.<br/>
-            <em>Worldwide (Remotely):</em> Remote Design Support – other dental labs can submit digital impressions or STL files through our secure online portal; our technicians will design frameworks, prosthetics, or custom abutments to your exact specifications.
-          </p>
+    <section className="flex flex-col gap-8 pt-20">
+      {/* Layout: Login شمال، النص يمين، Slider تحت - للزوار فقط */}
+      {status === "unauthenticated" && (
+        <div className="space-y-4 -mx-4 md:-mx-8">
+          {/* Hero Section مع صورة خلفية */}
+          <div 
+            className="relative overflow-hidden min-h-[600px] md:min-h-[700px] w-screen"
+            style={{
+              backgroundImage: 'url(/assets/lab-bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            {/* Overlay للتحكم في الشفافية */}
+            <div className="absolute inset-0 bg-black/40"></div>
+            
+            {/* المحتوى فوق الصورة */}
+            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-20 md:py-32">
+              {/* Login buttons - الشمال */}
+              <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg border-2 border-accent/30">
+                <h1 className="text-2xl md:text-3xl font-bold text-accent">Lab</h1>
+                <p className="text-sm text-accent leading-snug">
+                  Create lab tickets and track your orders online.
+                </p>
+                <div className="flex flex-col gap-2.5 pt-1">
+                  <Link
+                    href="/lab/login"
+                    className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
+                  >
+                    LOGIN
+                  </Link>
+                  <Link
+                    href="/lab/register"
+                    className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
+                  >
+                    REGISTER
+                  </Link>
+                </div>
+              </div>
+
+              {/* النص - اليمين */}
+              <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg">
+                <p className="text-xs md:text-sm text-accent font-bold leading-snug">
+                  MaxiCare's fully equipped dental laboratory sets us apart with true start-to-finish control over every restoration.
+                </p>
+                <ul className="space-y-2 text-xs md:text-sm">
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Cutting-Edge Equipment:</strong> High-precision milling machines and 3D printers for crowns, bridges, and implant prosthetics.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Customized Workflows:</strong> Each restoration designed by skilled technicians tailored to your exact specifications.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Quality Assurance:</strong> Rigorous testing for perfect fit and natural shade matching.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Nationwide Service:</strong> Order finished restorations through our platforms.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Remote Design Support:</strong> Submit digital impressions via our secure portal.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Slider في المنتصف تحت */}
+          <div className="w-full max-w-3xl mx-auto">
+            <MediaSlider items={slides} heightClass="h-[350px] md:h-[450px]" />
+          </div>
         </div>
-        {/* Slider */}
-        <div className="order-1 md:order-2">
-          <MediaSlider items={slides} heightClass="h-[300px]" />
+      )}
+
+      {/* للمستخدمين المسجلين: Hero + Slider العادي */}
+      {status === "authenticated" && (
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-accent">Lab</h1>
+            <p className="text-lg max-w-prose text-accent">
+              Create lab tickets and track your orders online.
+            </p>
+            <button
+              onClick={() => signOut({ callbackUrl: "/lab" })}
+              className="border border-accent text-accent py-2 px-6 rounded hover:bg-accent/20"
+            >
+              Logout
+            </button>
+          </div>
+          <div>
+            <MediaSlider items={slides} heightClass="h-[400px]" />
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Lab Tickets Section */}
       <h1 className="text-3xl md:text-4xl font-bold text-accent mb-4">Lab Tickets</h1>
 
       {/* Auth states */}
       {status === "loading" && <p>Loading…</p>}
       {status === "unauthenticated" && (
-        <p>
-          Please <a href="/lab/login" className="underline text-accent">Login</a> or {" "}
-          <a href="/lab/register" className="underline text-accent">Register</a> to create tickets.
+        <p className="text-accent">
+          Please login or register above to create tickets.
         </p>
       )}
 
       {status === "authenticated" && (
         <>
-          {/* Logout */}
-          <button onClick={() => signOut({ callbackUrl: "/lab/login" })} className="border border-accent text-accent px-4 py-1 rounded mb-4 hover:bg-accent/20">Logout</button>
           {/* Create ticket form */}
           <div className="border border-accent/40 p-6 rounded space-y-4 max-w-xl">
             <h2 className="text-xl font-semibold text-accent">Create New Ticket</h2>
