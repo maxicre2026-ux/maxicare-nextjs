@@ -9,7 +9,7 @@ export default function ContactPage() {
         style={{
           backgroundImage: 'url(/assets/contact-bg.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'top',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed'
         }}
@@ -19,7 +19,7 @@ export default function ContactPage() {
       </div>
 
       {/* المحتوى فوق الصورة */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-32 md:py-40">
         {/* العنوان */}
         <h1 className="text-4xl md:text-5xl font-bold text-accent text-center mb-12">Contact Us</h1>
 
