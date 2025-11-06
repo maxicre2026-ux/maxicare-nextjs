@@ -7,6 +7,7 @@ const navItems = [
   { label: "Clinic", href: "/clinic" },
   { label: "Lab", href: "/lab" },
   { label: "Education", href: "/education" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
