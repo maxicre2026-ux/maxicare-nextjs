@@ -21,7 +21,7 @@ export default function ClinicPage() {
   }
 
   return (
-    <section className="flex flex-col gap-8 pt-48">
+    <section className="flex flex-col gap-8 pt-20">
       {/* Layout: Login شمال، النص يمين، Slider تحت */}
       {status === "unauthenticated" && (
         <div className="space-y-4 -mx-4 md:-mx-8">
