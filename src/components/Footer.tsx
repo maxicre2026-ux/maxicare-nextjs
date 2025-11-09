@@ -13,7 +13,7 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold mb-2">Contact</h4>
           <p>Phone: +20 115 881 8778</p>
-          <p>Email: info@maxicare.com</p>
+          <p>Email: info@maxicaredental-eg.com</p>
         </div>
         {/* Social */}
         <div>

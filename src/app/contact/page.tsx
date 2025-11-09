@@ -55,8 +55,8 @@ export default function ContactPage() {
             <div>
               <h3 className="text-xl font-semibold text-accent mb-2">Email</h3>
               <p className="text-accent/90 text-base">
-                General: <a href="mailto:info@maxicare.com" className="underline hover:text-accent">info@maxicare.com</a><br/>
-                Support: <a href="mailto:support@maxicare.com" className="underline hover:text-accent">support@maxicare.com</a>
+                General: <a href="mailto:info@maxicaredental-eg.com" className="underline hover:text-accent">info@maxicaredental-eg.com</a><br/>
+                Support: <a href="mailto:support@maxicaredental-eg.com" className="underline hover:text-accent">support@maxicaredental-eg.com</a>
               </p>
             </div>
 
