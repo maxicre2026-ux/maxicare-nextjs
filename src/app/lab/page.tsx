@@ -131,28 +131,20 @@ export default function LabPage() {
               {/* النص - اليمين */}
               <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg">
                 <p className="text-xs md:text-sm text-accent font-bold leading-snug">
-                  MaxiCare's fully equipped dental laboratory sets us apart with true start-to-finish control over every restoration.
+                  At Maxicare Dental Clinic and Laboratory, we provide fully online digital dentistry solutions for dental professionals worldwide. Our services include:
                 </p>
                 <ul className="space-y-2 text-xs md:text-sm">
                   <li className="flex gap-2.5">
                     <span className="text-accent font-bold text-base">•</span>
-                    <span className="text-accent"><strong>Cutting-Edge Equipment:</strong> High-precision milling machines and 3D printers for crowns, bridges, and implant prosthetics.</span>
+                    <span className="text-accent"><strong>Digital Prosthodontic Design</strong> – precision design for crowns, bridges, veneers, and full-arch restorations.</span>
                   </li>
                   <li className="flex gap-2.5">
                     <span className="text-accent font-bold text-base">•</span>
-                    <span className="text-accent"><strong>Customized Workflows:</strong> Each restoration designed by skilled technicians tailored to your exact specifications.</span>
+                    <span className="text-accent"><strong>Custom Bars & Frameworks</strong> – digitally engineered for accuracy, strength, and perfect fit.</span>
                   </li>
                   <li className="flex gap-2.5">
                     <span className="text-accent font-bold text-base">•</span>
-                    <span className="text-accent"><strong>Quality Assurance:</strong> Rigorous testing for perfect fit and natural shade matching.</span>
-                  </li>
-                  <li className="flex gap-2.5">
-                    <span className="text-accent font-bold text-base">•</span>
-                    <span className="text-accent"><strong>Nationwide Service:</strong> Order finished restorations through our platforms.</span>
-                  </li>
-                  <li className="flex gap-2.5">
-                    <span className="text-accent font-bold text-base">•</span>
-                    <span className="text-accent"><strong>Remote Design Support:</strong> Submit digital impressions via our secure portal.</span>
+                    <span className="text-accent"><strong>Surgical Guide Design</strong> – detailed, implant-specific digital guides for predictable surgery outcomes.</span>
                   </li>
                 </ul>
               </div>
