@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="w-full h-[350px] md:h-[450px] border-2 border-accent/30 rounded-lg overflow-hidden bg-black/60 backdrop-blur-sm">
             <iframe
               title="map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23812.565!2d31.235711!3d30.044420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2zMzDCsDAyJzMzLjkiTiAzMcKwMTQnMDYuNSJF!5e0!3m2!1sen!2seg!4v1697840000000!5m2!1sen!2seg"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.0!2d31.3!3d30.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAzJzAwLjAiTiAzMcKwMTgnMDAuMCJF!5e0!3m2!1sen!2seg!4v1699999999999!5m2!1sen!2seg&q=3932%2BXQ+Nasr+City"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -48,8 +48,7 @@ export default function ContactPage() {
             <div>
               <h3 className="text-xl font-semibold text-accent mb-2">Phone</h3>
               <p className="text-accent/90 text-base">
-                Clinic: <a href="tel:+201158818778" className="underline hover:text-accent">+20 115 881 8778</a><br/>
-                Lab: <a href="tel:+201098765432" className="underline hover:text-accent">+20 109 876 5432</a>
+                <a href="tel:+201158818778" className="underline hover:text-accent">+20 115 881 8778</a>
               </p>
             </div>
 
