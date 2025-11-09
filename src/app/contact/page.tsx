@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="w-full h-[350px] md:h-[450px] border-2 border-accent/30 rounded-lg overflow-hidden bg-black/60 backdrop-blur-sm">
             <iframe
               title="map"
-              src="https://www.google.com/maps?q=101+Mustafa+El+Nahhas,Al+Manteqah+Ath+Thamenah,Nasr+City,Cairo+Governorate+4450113&output=embed&z=16"
+              src="https://www.google.com/maps?q=3932%2BXQ+Nasr+City&output=embed&z=17"
               width="100%"
               height="100%"
               style={{ border: 0 }}
