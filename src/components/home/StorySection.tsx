@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 
 export default function StorySection() {
   return (
@@ -12,12 +11,6 @@ export default function StorySection() {
           Our in-house lab and multi-disciplinary team ensure precision, speed, and the highest
           standard of patient care.
         </p>
-        <Link
-          href="/about"
-          className="inline-block border border-accent text-accent px-6 py-2 rounded hover:bg-accent hover:text-black transition-colors text-sm font-semibold"
-        >
-          LEARN MORE
-        </Link>
       </div>
     </section>
   );
