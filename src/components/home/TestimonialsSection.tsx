@@ -12,7 +12,7 @@ const partners = [
     name: "Dr. Ahmed Radi",
     title: "B.D.S",
     img: "/assets/partners/ahmed.jpg",
-    text: "With more than 14 years of expertise in aesthetic dentistry, prosthodontics, and dental implants, Dr. Ahmed Radi combines art, science, and digital innovation to craft beautiful, natural smiles. Through our advanced digital clinic and lab, we deliver precise, personalized treatments that ensure every patient leaves with confidence and satisfaction.",
+    text: "Dr. Ahmed Radi is a highly experienced dentist with 14 years of professional practice, specializing in esthetic dentistry, prosthodontics, dental implants, and as an expert in digital dentistry. He is a key partner at Maxicare Dental Clinic and Maxicare Dental Laboratory, where he has contributed to advancing patient care and integrating modern dental technologies. Dr. Radi has actively participated in numerous conferences and specialized courses, continually updating his expertise to stay at the forefront of dental innovations. His commitment to excellence, patient satisfaction, and professional development has established him as a trusted leader in the field of dentistry.",
   },
   {
     name: "Our Partnership",
