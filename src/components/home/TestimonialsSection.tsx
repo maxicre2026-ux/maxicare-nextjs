@@ -17,7 +17,7 @@ const partners = [
   {
     name: "Our Partnership",
     img: "/assets/partners/team.jpg",
-    text: "Loved the in-house lab — I got my crown in one visit!",
+    text: "For more than twelve years, Dr. Ahmed and Dr. Mohamed have maintained a distinguished partnership at Maxicare Dental Clinic and Laboratory in Cairo, Egypt, built on mutual respect, shared values, and a commitment to clinical excellence. As pioneers in digital dentistry, they have integrated advanced technology and modern techniques to enhance precision, efficiency, and patient comfort. Together, they have continually advanced the practice through innovation, integrity, and a steadfast dedication to patient care. Their long-standing collaboration has been instrumental in establishing Maxicare as a trusted leader in comprehensive dental services, recognized for its high standards, professional expertise, and unwavering focus on quality and patient satisfaction.",
   },
 ];
 
