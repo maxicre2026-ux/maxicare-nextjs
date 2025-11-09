@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="w-full h-[350px] md:h-[450px] border-2 border-accent/30 rounded-lg overflow-hidden bg-black/60 backdrop-blur-sm">
             <iframe
               title="map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.0!2d31.3!3d30.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDAzJzAwLjAiTiAzMcKwMTgnMDAuMCJF!5e0!3m2!1sen!2seg!4v1699999999999!5m2!1sen!2seg&q=3932%2BXQ+Nasr+City"
+              src="https://www.google.com/maps?q=101+Mustafa+El+Nahhas,Al+Manteqah+Ath+Thamenah,Nasr+City,Cairo+Governorate+4450113&output=embed&z=16"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -42,7 +42,7 @@ export default function ContactPage() {
           <div className="space-y-6 bg-black/60 backdrop-blur-sm p-6 rounded-lg border-2 border-accent/30">
             <div>
               <h2 className="text-2xl font-semibold text-accent mb-3">Head Office</h2>
-              <p className="text-accent/90 text-base">101 Mostafa El-Nahass St<br/>Nasr City, Cairo, Egypt</p>
+              <p className="text-accent/90 text-base">101 Mustafa El Nahhas<br/>Al Manteqah Ath Thamenah<br/>Nasr City, Cairo Governorate 4450113</p>
             </div>
 
             <div>
