@@ -42,13 +42,13 @@ export default function ContactPage() {
           <div className="space-y-6 bg-black/60 backdrop-blur-sm p-6 rounded-lg border-2 border-accent/30">
             <div>
               <h2 className="text-2xl font-semibold text-accent mb-3">Head Office</h2>
-              <p className="text-accent/90 text-base">123 Placeholder Street,<br/>Nasr City, Cairo, Egypt</p>
+              <p className="text-accent/90 text-base">101 Mostafa El-Nahass St<br/>Nasr City, Cairo, Egypt</p>
             </div>
 
             <div>
               <h3 className="text-xl font-semibold text-accent mb-2">Phone</h3>
               <p className="text-accent/90 text-base">
-                Clinic: <a href="tel:+201234567890" className="underline hover:text-accent">+20 123 456 7890</a><br/>
+                Clinic: <a href="tel:+201158818778" className="underline hover:text-accent">+20 115 881 8778</a><br/>
                 Lab: <a href="tel:+201098765432" className="underline hover:text-accent">+20 109 876 5432</a>
               </p>
             </div>
