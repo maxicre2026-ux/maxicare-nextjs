@@ -10,8 +10,9 @@ const partners = [
   },
   {
     name: "Dr. Ahmed Radi",
+    title: "B.D.S",
     img: "/assets/partners/ahmed.jpg",
-    text: "Fast appointments and top-notch equipment. Highly recommended.",
+    text: "With more than 14 years of expertise in aesthetic dentistry, prosthodontics, and dental implants, Dr. Ahmed Radi combines art, science, and digital innovation to craft beautiful, natural smiles. Through our advanced digital clinic and lab, we deliver precise, personalized treatments that ensure every patient leaves with confidence and satisfaction.",
   },
   {
     name: "Our Partnership",
