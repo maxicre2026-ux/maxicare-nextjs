@@ -104,3 +104,13 @@ model TicketFile {
   ticketId  String
   createdAt DateTime @default(now())
 }
+
+model Expense {
+  id          String   @id @default(uuid())
+  description String
+  amount      Float
+  currency    String   @default("EGP")
+  category    String?
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
