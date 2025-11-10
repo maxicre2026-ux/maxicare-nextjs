@@ -2,7 +2,7 @@
 
 export default function ContactPage() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center -mt-20">
+    <section className="relative min-h-screen flex items-center justify-center pt-20">
       {/* صورة الخلفية الكبيرة */}
       <div 
         className="absolute inset-0 w-full h-full"
@@ -19,7 +19,7 @@ export default function ContactPage() {
       </div>
 
       {/* المحتوى فوق الصورة */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-32 md:py-40">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 pb-32 md:pt-24 md:pb-40">
         {/* العنوان */}
         <h1 className="text-4xl md:text-5xl font-bold text-accent text-center mb-12">Contact Us</h1>
 
