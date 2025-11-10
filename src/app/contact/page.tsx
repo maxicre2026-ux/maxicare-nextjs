@@ -42,7 +42,7 @@ export default function ContactPage() {
           <div className="space-y-6 bg-black/60 backdrop-blur-sm p-6 rounded-lg border-2 border-accent/30">
             <div>
               <h2 className="text-2xl font-semibold text-accent mb-3">Head Office</h2>
-              <p className="text-accent/90 text-base">101 Mustafa El Nahhas<br/>Al Manteqah Ath Thamenah<br/>Nasr City, Cairo Governorate 4450113</p>
+              <p className="text-accent/90 text-base">101 Mustafa El Nahhas<br/>Al Manteqah Ath Thamenah<br/>Nasr City, Cairo Governorate</p>
             </div>
 
             <div>
