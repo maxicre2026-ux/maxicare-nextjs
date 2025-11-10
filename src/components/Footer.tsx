@@ -5,12 +5,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-black text-accent py-8 mt-20">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 px-4 text-sm">
-        {/* Brand */}
-        <div>
-          <h3 className="text-xl font-bold mb-2">MAXICARE</h3>
-          <p>Comprehensive Dental Care</p>
-        </div>
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 px-4 text-sm">
         {/* Contact */}
         <div>
           <h4 className="font-semibold mb-2">Contact</h4>
