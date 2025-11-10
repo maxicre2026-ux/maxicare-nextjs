@@ -276,12 +276,12 @@ export default function ClinicAdminPage() {
   const balance = totalIncome - totalExpenses;
 
   return (
-    <div className="p-6 pt-16 space-y-6">
-      <div className="flex justify-between items-center mb-12">
+    <div className="p-6 pt-28 space-y-6">
+      <div className="flex justify-between items-center mb-16">
         <h1 className="text-3xl font-bold text-accent">Clinic Admin Dashboard</h1>
         
         {/* Balance Display */}
-        <div className="bg-neutral-900/60 border-2 border-accent rounded-lg p-5 min-w-[320px]">
+        <div className="bg-neutral-900/60 border-2 border-accent rounded-lg p-6 min-w-[340px]">
           <p className="text-sm text-accent/80 mb-1">Current Balance</p>
           <p className={`text-3xl font-bold ${balance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
             {balance.toFixed(2)} EGP
