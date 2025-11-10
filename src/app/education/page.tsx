@@ -30,6 +30,7 @@ export default function EducationPage() {
             <p className="text-base md:text-lg text-accent max-w-3xl leading-relaxed">
               Explore articles, videos and tutorials prepared by MaxiCare experts to keep you up-to-date with the latest techniques and best practices in implantology, periodontology, and esthetic dentistry.
             </p>
+            <p className="text-3xl md:text-4xl font-bold text-accent pt-6">COMING SOON</p>
           </div>
         </div>
 
@@ -39,12 +40,6 @@ export default function EducationPage() {
         </div>
       </div>
 
-      {/* Resources placeholder */}
-      <div className="text-center space-y-6 py-8">
-        <h3 className="text-2xl font-semibold text-accent">Featured Resources</h3>
-        <p className="text-accent/80">Interactive courses, downloadable guides, and webinar recordings.</p>
-        <p className="text-3xl md:text-4xl font-bold text-accent pt-4">COMING SOON</p>
-      </div>
     </section>
   );
 }
