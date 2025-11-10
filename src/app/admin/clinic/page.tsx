@@ -276,8 +276,8 @@ export default function ClinicAdminPage() {
   const balance = totalIncome - totalExpenses;
 
   return (
-    <div className="p-6 pt-28 space-y-6">
-      <div className="flex justify-between items-center mb-16">
+    <div className="p-6 pt-48 space-y-6">
+      <div className="flex justify-between items-center mb-20">
         <h1 className="text-3xl font-bold text-accent">Clinic Admin Dashboard</h1>
         
         {/* Balance Display */}
