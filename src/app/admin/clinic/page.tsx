@@ -53,6 +53,7 @@ export default function ClinicAdminPage() {
   const [expenseDesc, setExpenseDesc] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
   const [expenseCategory, setExpenseCategory] = useState("");
+  const [addingExpense, setAddingExpense] = useState(false);
   
   // Report Modal
   const [showReport, setShowReport] = useState(false);
@@ -214,24 +215,39 @@ export default function ClinicAdminPage() {
   }
 
   async function addExpense() {
-    if (!expenseDesc || !expenseAmount) return;
+    if (!expenseDesc || !expenseAmount) {
+      alert("Please enter description and amount");
+      return;
+    }
     
-    const res = await fetch('/api/admin/expenses', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        description: expenseDesc, 
-        amount: parseFloat(expenseAmount),
-        category: expenseCategory || null
-      }),
-    });
+    setAddingExpense(true);
     
-    if (res.ok) {
-      const data = await res.json();
-      setExpenses([data.expense, ...expenses]);
-      setExpenseDesc("");
-      setExpenseAmount("");
-      setExpenseCategory("");
+    try {
+      const res = await fetch('/api/admin/expenses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          description: expenseDesc, 
+          amount: parseFloat(expenseAmount),
+          category: expenseCategory || null
+        }),
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setExpenses([data.expense, ...expenses]);
+        setExpenseDesc("");
+        setExpenseAmount("");
+        setExpenseCategory("");
+        alert("✅ Expense added successfully!");
+      } else {
+        const error = await res.json();
+        alert(`❌ Error: ${error.error || 'Failed to add expense'}`);
+      }
+    } catch (err) {
+      alert("❌ Network error. Please try again.");
+    } finally {
+      setAddingExpense(false);
     }
   }
 
@@ -250,9 +266,32 @@ export default function ClinicAdminPage() {
 
   if (loading) return <p className="p-6">Loading…</p>;
 
+  // Calculate totals
+  const totalIncome = list.reduce((sum, a) => {
+    const userTotal = a.user.payments.reduce((s, p) => s + p.amount, 0);
+    return sum + userTotal;
+  }, 0);
+  
+  const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const balance = totalIncome - totalExpenses;
+
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-accent mb-4">Clinic Admin Dashboard</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold text-accent">Clinic Admin Dashboard</h1>
+        
+        {/* Balance Display */}
+        <div className="bg-neutral-900/60 border-2 border-accent rounded-lg p-4 min-w-[250px]">
+          <p className="text-sm text-accent/80 mb-1">Current Balance</p>
+          <p className={`text-3xl font-bold ${balance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+            {balance.toFixed(2)} EGP
+          </p>
+          <div className="flex justify-between text-xs mt-2 pt-2 border-t border-accent/30">
+            <span className="text-green-500">+{totalIncome.toFixed(2)}</span>
+            <span className="text-red-500">-{totalExpenses.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
 
       {/* Filters */}
       <div className="bg-neutral-900/60 border border-accent/30 rounded-lg p-4">
@@ -324,26 +363,31 @@ export default function ClinicAdminPage() {
           />
           <button
             onClick={addExpense}
-            className="border border-accent text-accent px-4 py-2 rounded hover:bg-accent/20 text-sm font-semibold"
+            disabled={addingExpense}
+            className="border border-accent text-accent px-4 py-2 rounded hover:bg-accent/20 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Add Expense
+            {addingExpense ? "Adding..." : "Add Expense"}
           </button>
         </div>
 
         {/* Expenses List */}
         <div className="space-y-2 max-h-48 overflow-y-auto">
-          {expenses.map((exp) => (
-            <div key={exp.id} className="border border-accent/20 p-2 rounded text-sm flex justify-between items-center">
-              <div>
-                <span className="font-semibold">{exp.description}</span>
-                {exp.category && <span className="text-accent/60 ml-2">({exp.category})</span>}
+          {expenses.length === 0 ? (
+            <p className="text-center text-accent/60 py-4">No expenses recorded yet</p>
+          ) : (
+            expenses.map((exp) => (
+              <div key={exp.id} className="border border-red-500/30 bg-red-950/20 p-2 rounded text-sm flex justify-between items-center">
+                <div>
+                  <span className="font-semibold text-white">{exp.description}</span>
+                  {exp.category && <span className="text-accent/60 ml-2">({exp.category})</span>}
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-accent/70">{new Date(exp.date).toLocaleDateString()}</span>
+                  <span className="font-bold text-red-500">-{exp.amount} {exp.currency}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-accent/70">{new Date(exp.date).toLocaleDateString()}</span>
-                <span className="font-bold text-accent">{exp.amount} {exp.currency}</span>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 
