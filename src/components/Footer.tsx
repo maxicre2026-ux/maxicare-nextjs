@@ -1,4 +1,6 @@
 "use client";
+import { Facebook, Instagram, MessageCircle } from "lucide-react";
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -19,9 +21,33 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold mb-2">Follow Us</h4>
           <div className="flex gap-4">
-            <a href="#" aria-label="facebook" className="hover:text-white">FB</a>
-            <a href="#" aria-label="instagram" className="hover:text-white">IG</a>
-            <a href="#" aria-label="whatsapp" className="hover:text-white">WA</a>
+            <a 
+              href="https://www.facebook.com/people/MaxiCare-Dental-Lab/61552783405116/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="facebook" 
+              className="hover:text-white transition-colors"
+            >
+              <Facebook size={24} />
+            </a>
+            <a 
+              href="https://www.instagram.com/maxicare_dental_lab" 
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="instagram" 
+              className="hover:text-white transition-colors"
+            >
+              <Instagram size={24} />
+            </a>
+            <a 
+              href="https://wa.me/201158818778" 
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="whatsapp" 
+              className="hover:text-white transition-colors"
+            >
+              <MessageCircle size={24} />
+            </a>
           </div>
         </div>
       </div>
