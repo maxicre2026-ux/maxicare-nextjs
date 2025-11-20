@@ -47,6 +47,8 @@ export default function ClinicAdminPage() {
   // Filters
   const [filterDoctor, setFilterDoctor] = useState("");
   const [filterClient, setFilterClient] = useState("");
+  const [filterStartDate, setFilterStartDate] = useState("");
+  const [filterEndDate, setFilterEndDate] = useState("");
   
   // Expenses
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -54,6 +56,8 @@ export default function ClinicAdminPage() {
   const [expenseAmount, setExpenseAmount] = useState("");
   const [expenseCategory, setExpenseCategory] = useState("");
   const [addingExpense, setAddingExpense] = useState(false);
+  const [expenseKind, setExpenseKind] = useState<"GENERAL" | "DOCTOR">("GENERAL");
+  const [expenseDoctor, setExpenseDoctor] = useState("");
   
   // Report Modal
   const [showReport, setShowReport] = useState(false);
@@ -107,8 +111,20 @@ export default function ClinicAdminPage() {
       );
     }
     
+    if (filterStartDate) {
+      const start = new Date(filterStartDate);
+      filtered = filtered.filter(a => new Date(a.date) >= start);
+    }
+
+    if (filterEndDate) {
+      const end = new Date(filterEndDate);
+      // اجعل نهاية اليوم حتى لا نخسر مواعيد في نفس اليوم
+      end.setHours(23, 59, 59, 999);
+      filtered = filtered.filter(a => new Date(a.date) <= end);
+    }
+    
     setFilteredList(filtered);
-  }, [filterDoctor, filterClient, list]);
+  }, [filterDoctor, filterClient, filterStartDate, filterEndDate, list]);
 
   async function approve(id: string) {
     const res = await fetch(`/api/admin/appointments/${id}`, {
@@ -219,6 +235,11 @@ export default function ClinicAdminPage() {
       alert("Please enter description and amount");
       return;
     }
+
+    if (expenseKind === "DOCTOR" && !expenseDoctor.trim()) {
+      alert("Please enter doctor name for doctor-specific expense");
+      return;
+    }
     
     setAddingExpense(true);
     
@@ -229,7 +250,9 @@ export default function ClinicAdminPage() {
         body: JSON.stringify({ 
           description: expenseDesc, 
           amount: parseFloat(expenseAmount),
-          category: expenseCategory || null
+          category: expenseCategory || null,
+          kind: expenseKind,
+          doctor: expenseKind === "DOCTOR" ? expenseDoctor.trim() : null,
         }),
       });
       
@@ -239,6 +262,8 @@ export default function ClinicAdminPage() {
         setExpenseDesc("");
         setExpenseAmount("");
         setExpenseCategory("");
+        setExpenseDoctor("");
+        setExpenseKind("GENERAL");
         alert("✅ Expense added successfully!");
       } else {
         const error = await res.json();
@@ -256,6 +281,8 @@ export default function ClinicAdminPage() {
     const params = new URLSearchParams();
     if (filterDoctor) params.set("doctor", filterDoctor);
     if (filterClient) params.set("clientEmail", filterClient);
+    if (filterStartDate) params.set("startDate", filterStartDate);
+    if (filterEndDate) params.set("endDate", filterEndDate);
     
     const res = await fetch(`/api/admin/reports?${params.toString()}`);
     const data = await res.json();
@@ -274,6 +301,59 @@ export default function ClinicAdminPage() {
   
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
   const balance = totalIncome - totalExpenses;
+
+  // Filter expenses by date range (نفس فلاتر التاريخ المستخدمة في المواعيد)
+  const filteredExpenses = expenses.filter((e) => {
+    const d = new Date(e.date);
+    if (filterStartDate) {
+      const start = new Date(filterStartDate);
+      if (d < start) return false;
+    }
+    if (filterEndDate) {
+      const end = new Date(filterEndDate);
+      end.setHours(23, 59, 59, 999);
+      if (d > end) return false;
+    }
+    return true;
+  });
+
+  // Per-doctor income and expenses (based على المواعيد والمصاريف بعد الفلترة)
+  const doctorStatsMap: Record<string, { doctor: string; appointments: number; income: number; personalExpenses: number; generalShare: number; net: number }> = {};
+  filteredList.forEach((a) => {
+    const key = a.doctor || "Unknown";
+    const incomeForAppointment = a.user.payments.reduce((s, p) => s + p.amount, 0);
+    if (!doctorStatsMap[key]) {
+      doctorStatsMap[key] = { doctor: key, appointments: 0, income: 0, personalExpenses: 0, generalShare: 0, net: 0 };
+    }
+    doctorStatsMap[key].appointments += 1;
+    doctorStatsMap[key].income += incomeForAppointment;
+  });
+
+  // مصاريف الدكتور الخاصة
+  filteredExpenses.forEach((e) => {
+    if ((e as any).kind === "DOCTOR") {
+      const key = (e as any).doctor || "Unknown";
+      if (!doctorStatsMap[key]) {
+        doctorStatsMap[key] = { doctor: key, appointments: 0, income: 0, personalExpenses: 0, generalShare: 0, net: 0 };
+      }
+      doctorStatsMap[key].personalExpenses += e.amount;
+    }
+  });
+
+  // المصاريف العامة تقسم مناصفة بين كل الدكاترة الموجودين في الفلتر
+  const doctorsArray = Object.values(doctorStatsMap);
+  const doctorCount = doctorsArray.length;
+  const totalGeneralExpenses = filteredExpenses
+    .filter((e) => (e as any).kind !== "DOCTOR")
+    .reduce((sum, e) => sum + e.amount, 0);
+
+  const generalSharePerDoctor = doctorCount > 0 ? totalGeneralExpenses / doctorCount : 0;
+  doctorsArray.forEach((d) => {
+    d.generalShare = generalSharePerDoctor;
+    d.net = d.income - d.personalExpenses - d.generalShare;
+  });
+
+  const doctorStats = doctorsArray.sort((a, b) => b.net - a.net);
 
   return (
     <div className="p-6 pt-48 space-y-6">
@@ -299,7 +379,7 @@ export default function ClinicAdminPage() {
           <Filter size={20} className="text-accent" />
           <h2 className="text-xl font-semibold text-accent">Filters</h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-5 gap-4">
           <div>
             <label className="text-sm text-accent/80">Doctor</label>
             <input
@@ -320,9 +400,32 @@ export default function ClinicAdminPage() {
               onChange={(e) => setFilterClient(e.target.value)}
             />
           </div>
+          <div>
+            <label className="text-sm text-accent/80">From Date</label>
+            <input
+              type="date"
+              className="w-full bg-background border border-accent/30 p-2 rounded text-sm mt-1"
+              value={filterStartDate}
+              onChange={(e) => setFilterStartDate(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-sm text-accent/80">To Date</label>
+            <input
+              type="date"
+              className="w-full bg-background border border-accent/30 p-2 rounded text-sm mt-1"
+              value={filterEndDate}
+              onChange={(e) => setFilterEndDate(e.target.value)}
+            />
+          </div>
           <div className="flex items-end">
             <button
-              onClick={() => { setFilterDoctor(""); setFilterClient(""); }}
+              onClick={() => { 
+                setFilterDoctor(""); 
+                setFilterClient("");
+                setFilterStartDate("");
+                setFilterEndDate("");
+              }}
               className="border border-accent text-accent px-4 py-2 rounded hover:bg-accent/20 text-sm w-full"
             >
               Clear Filters
@@ -331,15 +434,55 @@ export default function ClinicAdminPage() {
         </div>
       </div>
 
+      {/* Doctor Summary */}
+      {doctorStats.length > 0 && (
+        <div className="bg-neutral-900/60 border border-accent/30 rounded-lg p-4">
+          <h2 className="text-xl font-semibold text-accent mb-3">Doctors Summary (based on filters)</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-accent/40">
+                  <th className="py-2 text-left">Doctor</th>
+                  <th className="py-2 text-left">Appointments</th>
+                  <th className="py-2 text-left">Income (EGP)</th>
+                  <th className="py-2 text-left">Personal Expenses</th>
+                  <th className="py-2 text-left">General Share</th>
+                  <th className="py-2 text-left">Net (EGP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {doctorStats.map((d) => (
+                  <tr key={d.doctor} className="border-b border-accent/10">
+                    <td className="py-2">{d.doctor}</td>
+                    <td className="py-2">{d.appointments}</td>
+                    <td className="py-2 text-green-500">{d.income.toFixed(2)}</td>
+                    <td className="py-2 text-red-500">-{d.personalExpenses.toFixed(2)}</td>
+                    <td className="py-2 text-red-500">-{d.generalShare.toFixed(2)}</td>
+                    <td className={`py-2 font-semibold ${d.net >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {d.net.toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
       {/* Expenses Section */}
       <div className="bg-neutral-900/60 border border-accent/30 rounded-lg p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <DollarSign size={20} className="text-accent" />
-          <h2 className="text-xl font-semibold text-accent">Clinic Expenses</h2>
+        <div className="flex items-center gap-2 mb-3 justify-between">
+          <div className="flex items-center gap-2">
+            <DollarSign size={20} className="text-accent" />
+            <h2 className="text-xl font-semibold text-accent">Clinic Expenses</h2>
+          </div>
+          <p className="text-sm text-accent/80">
+            General expenses are split equally between doctors in the current filters
+          </p>
         </div>
         
         {/* Add Expense Form */}
-        <div className="grid md:grid-cols-4 gap-3 mb-4">
+        <div className="grid md:grid-cols-6 gap-3 mb-4">
           <input
             type="text"
             placeholder="Description..."
@@ -360,6 +503,21 @@ export default function ClinicAdminPage() {
             className="bg-background border border-accent/30 p-2 rounded text-sm"
             value={expenseCategory}
             onChange={(e) => setExpenseCategory(e.target.value)}
+          />
+          <select
+            className="bg-background border border-accent/30 p-2 rounded text-sm"
+            value={expenseKind}
+            onChange={(e) => setExpenseKind(e.target.value as "GENERAL" | "DOCTOR")}
+          >
+            <option value="GENERAL">General Expense</option>
+            <option value="DOCTOR">Doctor Specific</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Doctor name (if doctor expense)"
+            className="bg-background border border-accent/30 p-2 rounded text-sm"
+            value={expenseDoctor}
+            onChange={(e) => setExpenseDoctor(e.target.value)}
           />
           <button
             onClick={addExpense}

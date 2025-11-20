@@ -34,19 +34,31 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { description, amount, category, date } = body;
+    const { description, amount, category, date, doctor, kind } = body;
 
     if (!description || !amount) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const data: any = {
+      description,
+      amount: typeof amount === "number" ? amount : parseFloat(amount),
+      category: category || null,
+      date: date ? new Date(date) : new Date(),
+    };
+
+    if (doctor) {
+      data.doctor = doctor;
+    }
+
+    if (kind === "DOCTOR") {
+      data.kind = "DOCTOR";
+    } else {
+      data.kind = "GENERAL";
+    }
+
     const expense = await prisma.expense.create({
-      data: {
-        description,
-        amount: parseFloat(amount),
-        category: category || null,
-        date: date ? new Date(date) : new Date(),
-      },
+      data,
     });
 
     return NextResponse.json({ expense });
