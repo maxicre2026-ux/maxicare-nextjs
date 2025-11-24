@@ -1,4 +1,5 @@
 "use client";
+import { Facebook, Instagram } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -65,6 +66,82 @@ export default function ContactPage() {
               <p className="text-accent/90 text-base">
                 Saturday - Thursday: 3:00 PM - 9:00 PM
               </p>
+            </div>
+
+            {/* Social Media */}
+            <div className="space-y-3">
+              <h3 className="text-xl font-semibold text-accent mb-1">Social Media</h3>
+
+              {/* Clinic */}
+              <div>
+                <p className="text-accent/80 text-sm mb-1">Clinic</p>
+                <div className="flex gap-3 items-center">
+                  <a
+                    href="https://www.facebook.com/share/1FAxG6NZE5/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Clinic Facebook"
+                    className="hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  >
+                    <Facebook size={18} />
+                    <span className="hidden md:inline">Facebook</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/maxicare.dental?igsh=MXF2cWRiMDRzMGtqZA%3D%3D&utm_source=qr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Clinic Instagram"
+                    className="hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  >
+                    <Instagram size={18} />
+                    <span className="hidden md:inline">Instagram</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Lab */}
+              <div>
+                <p className="text-accent/80 text-sm mb-1">Lab</p>
+                <div className="flex gap-3 items-center">
+                  <a
+                    href="https://www.facebook.com/share/17UueR8Z31/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Lab Facebook"
+                    className="hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  >
+                    <Facebook size={18} />
+                    <span className="hidden md:inline">Facebook</span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/maxicare_dental_lab?igsh=MXc1aWZybTJib3NpYg%3D%3D&utm_source=qr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Lab Instagram"
+                    className="hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  >
+                    <Instagram size={18} />
+                    <span className="hidden md:inline">Instagram</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Education */}
+              <div>
+                <p className="text-accent/80 text-sm mb-1">Education</p>
+                <div className="flex gap-3 items-center">
+                  <a
+                    href="https://www.facebook.com/share/1GqtvV9U1f/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Education Facebook"
+                    className="hover:text-white transition-colors flex items-center gap-1 text-sm"
+                  >
+                    <Facebook size={18} />
+                    <span className="hidden md:inline">Facebook</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
