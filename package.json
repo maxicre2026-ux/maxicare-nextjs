@@ -20,7 +20,7 @@
     "formidable": "^3.5.4",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.553.0",
-    "next": "^16.0.8",
+    "next": "^15.5.7",
     "next-auth": "^4.24.11",
     "next-connect": "^1.0.0",
     "node-cron": "^4.2.1",
@@ -38,7 +38,7 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "^15.5.7",
     "prisma": "^6.17.0",
     "tailwindcss": "^4",
     "typescript": "^5"
