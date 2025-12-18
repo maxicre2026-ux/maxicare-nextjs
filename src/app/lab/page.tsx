@@ -28,6 +28,7 @@ export default function LabPage() {
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
   const slides: MediaItem[] = [
     { src: "/assets/Lab/lab-slide1.jpg" },
@@ -64,33 +65,66 @@ export default function LabPage() {
     if (!subject) return;
     setSubmitting(true);
     setError("");
+    setUploadProgress(0);
+
     const form = new FormData();
     form.append("subject", subject);
     if (description) form.append("description", description);
     if (file) form.append("file", file);
 
-    const res = await fetch("/api/lab/tickets", {
-      method: "POST",
-      body: form,
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setTickets((prev) => [data.ticket, ...prev]);
-      setSubject("");
-      setDescription("");
-      setFile(null);
-    } else {
-      let errMsg = "Failed";
-      try {
-        const ct = res.headers.get("content-type");
-        if (ct && ct.includes("application/json")) {
-          const data = await res.json();
-          errMsg = data.error || errMsg;
-        } else {
-          errMsg = await res.text();
-        }
-      } catch {}
-      setError(errMsg);
+    try {
+      const response = await new Promise<Response>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/lab/tickets");
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round((event.loaded / event.total) * 100);
+            setUploadProgress(percent);
+          }
+        };
+
+        xhr.onload = () => {
+          const status = xhr.status;
+          const body = xhr.responseText;
+          const headers = new Headers();
+          const contentType = xhr.getResponseHeader("content-type");
+          if (contentType) headers.set("content-type", contentType);
+          const res = new Response(body, { status, headers });
+          resolve(res);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error("Network error"));
+        };
+
+        xhr.send(form);
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTickets((prev) => [data.ticket, ...prev]);
+        setSubject("");
+        setDescription("");
+        setFile(null);
+        setUploadProgress(null);
+      } else {
+        let errMsg = "Failed";
+        try {
+          const ct = response.headers.get("content-type");
+          if (ct && ct.includes("application/json")) {
+            const data = await response.json();
+            errMsg = (data as any).error || errMsg;
+          } else {
+            errMsg = await response.text();
+          }
+        } catch {}
+        setError(errMsg);
+        setUploadProgress(null);
+      }
+    } catch (err) {
+      setError("Upload failed. Please try again.");
+      setUploadProgress(null);
     }
     setSubmitting(false);
   }
@@ -224,6 +258,14 @@ export default function LabPage() {
                 <input name="file" type="file" onChange={(e) => setFile(e.target.files?.[0] || null)} />
                 {file && <span className="text-xs">{file.name}</span>}
               </div>
+              {uploadProgress !== null && (
+                <div className="w-full bg-neutral-800 rounded h-2 overflow-hidden">
+                  <div
+                    className="bg-accent h-2 transition-all"
+                    style={{ width: `${uploadProgress}%` }}
+                  />
+                </div>
+              )}
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
                 type="submit"
