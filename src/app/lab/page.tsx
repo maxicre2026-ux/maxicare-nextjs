@@ -47,8 +47,17 @@ export default function LabPage() {
 
   useEffect(() => {
     if (status !== "authenticated") return;
+
+    const role = (session?.user as any)?.role as string | undefined;
+
+    // لو المستخدم مش LAB_CLIENT (يعني حساب عيادة أو أي نوع آخر)، نطلعه من اللاب
+    if (role !== "LAB_CLIENT") {
+      signOut({ callbackUrl: "/clinic" });
+      return;
+    }
+
     loadTickets();
-  }, [status]);
+  }, [status, session]);
 
   async function createTicket(e: React.FormEvent) {
     e.preventDefault();
@@ -158,8 +167,8 @@ export default function LabPage() {
         </div>
       )}
 
-      {/* للمستخدمين المسجلين: Hero + Slider العادي */}
-      {status === "authenticated" && (
+      {/* للمستخدمين المسجلين من نوع LAB_CLIENT فقط: Hero + Slider العادي */}
+      {status === "authenticated" && (session?.user as any)?.role === "LAB_CLIENT" && (
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold text-accent">Lab</h1>
