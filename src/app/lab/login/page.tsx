@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 export default function LabLoginPage() {
@@ -11,11 +11,32 @@ export default function LabLoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
+
     const res = await signIn("credentials", { ...form, redirect: false });
-    if (!res?.error) {
-      window.location.href = "/lab";
-    } else {
+
+    if (res?.error) {
       setError("Invalid credentials");
+      return;
+    }
+
+    // بعد تسجيل الدخول بنجاح، نتحقق أن هذا الحساب خاص باللاب فقط
+    try {
+      const sessionRes = await fetch("/api/auth/session");
+      const session = await sessionRes.json();
+      const role = session?.user?.role as string | undefined;
+
+      if (role !== "LAB_CLIENT") {
+        // الحساب ليس حساب لاب -> نمنع الدخول للاب ونخرج المستخدم من السيشن
+        setError("This account is not for the lab. Please use the clinic login page.");
+        await signOut({ redirect: false });
+        return;
+      }
+
+      // حساب لاب صحيح -> نوجهه للاب
+      window.location.href = "/lab";
+    } catch (err) {
+      setError("Login error. Please try again.");
     }
   }
 
