@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import MediaSlider, { MediaItem } from "@/components/MediaSlider";
 import { signOut } from "next-auth/react";
+import { upload } from "@vercel/blob/client";
 
 interface Ticket {
   id: string;
@@ -65,40 +66,26 @@ export default function LabPage() {
     if (!subject) return;
     setSubmitting(true);
     setError("");
-    setUploadProgress(0);
-
-    const form = new FormData();
-    form.append("subject", subject);
-    if (description) form.append("description", description);
-    if (file) form.append("file", file);
+    setUploadProgress(null);
 
     try {
-      const response = await new Promise<Response>((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/lab/tickets");
+      let attachmentUrl: string | undefined;
 
-        xhr.upload.onprogress = (event) => {
-          if (event.lengthComputable) {
-            const percent = Math.round((event.loaded / event.total) * 100);
-            setUploadProgress(percent);
-          }
-        };
+      if (file) {
+        // رفع الملف أولاً إلى Vercel Blob عبر الراوت /api/blob-upload
+        setUploadProgress(0);
+        const result = await upload(`tickets/${Date.now()}-${file.name}`, file, {
+          access: "public",
+          handleUploadUrl: "/api/blob-upload",
+        });
+        attachmentUrl = result.url;
+        setUploadProgress(100);
+      }
 
-        xhr.onload = () => {
-          const status = xhr.status;
-          const body = xhr.responseText;
-          const headers = new Headers();
-          const contentType = xhr.getResponseHeader("content-type");
-          if (contentType) headers.set("content-type", contentType);
-          const res = new Response(body, { status, headers });
-          resolve(res);
-        };
-
-        xhr.onerror = () => {
-          reject(new Error("Network error"));
-        };
-
-        xhr.send(form);
+      const response = await fetch("/api/lab/tickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subject, description, attachmentUrl }),
       });
 
       if (response.ok) {
@@ -126,6 +113,7 @@ export default function LabPage() {
       setError("Upload failed. Please try again.");
       setUploadProgress(null);
     }
+
     setSubmitting(false);
   }
 
