@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import MediaSlider, { MediaItem } from "@/components/MediaSlider";
 import { signOut } from "next-auth/react";
-import { upload } from "@vercel/blob/client";
 
 interface Ticket {
   id: string;
@@ -30,6 +29,7 @@ export default function LabPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [externalLink, setExternalLink] = useState("");
 
   const slides: MediaItem[] = [
     { src: "/assets/Lab/lab-slide1.jpg" },
@@ -66,26 +66,41 @@ export default function LabPage() {
     if (!subject) return;
     setSubmitting(true);
     setError("");
-    setUploadProgress(null);
+    setUploadProgress(0);
+
+    const form = new FormData();
+    form.append("subject", subject);
+    if (description) form.append("description", description);
+    if (externalLink) form.append("externalLink", externalLink);
+    if (file) form.append("file", file);
 
     try {
-      let attachmentUrl: string | undefined;
+      const response = await new Promise<Response>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/lab/tickets");
 
-      if (file) {
-        // رفع الملف أولاً إلى Vercel Blob عبر الراوت /api/blob-upload
-        setUploadProgress(0);
-        const result = await upload(`tickets/${Date.now()}-${file.name}`, file, {
-          access: "public",
-          handleUploadUrl: "/api/blob-upload",
-        });
-        attachmentUrl = result.url;
-        setUploadProgress(100);
-      }
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round((event.loaded / event.total) * 100);
+            setUploadProgress(percent);
+          }
+        };
 
-      const response = await fetch("/api/lab/tickets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject, description, attachmentUrl }),
+        xhr.onload = () => {
+          const status = xhr.status;
+          const body = xhr.responseText;
+          const headers = new Headers();
+          const contentType = xhr.getResponseHeader("content-type");
+          if (contentType) headers.set("content-type", contentType);
+          const res = new Response(body, { status, headers });
+          resolve(res);
+        };
+
+        xhr.onerror = () => {
+          reject(new Error("Network error"));
+        };
+
+        xhr.send(form);
       });
 
       if (response.ok) {
@@ -94,6 +109,7 @@ export default function LabPage() {
         setSubject("");
         setDescription("");
         setFile(null);
+        setExternalLink("");
         setUploadProgress(null);
       } else {
         let errMsg = "Failed";
@@ -239,6 +255,17 @@ export default function LabPage() {
                   className="bg-background border border-accent/30 p-2 rounded"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor="extLink">External File Link (Google Drive / Dropbox) - optional</label>
+                <input
+                  id="extLink"
+                  type="url"
+                  placeholder="https://drive.google.com/..."
+                  className="bg-background border border-accent/30 p-2 rounded"
+                  value={externalLink}
+                  onChange={(e) => setExternalLink(e.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-1">

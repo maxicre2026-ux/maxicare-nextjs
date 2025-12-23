@@ -1,7 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import formidable from "formidable";
+import fs from "fs";
+import { put } from "@vercel/blob";
+import path from "path";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
+
+export const config = { api: { bodyParser: false } };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions as any);
@@ -18,21 +24,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "POST") {
-    const { subject, description, attachmentUrl } = req.body as {
-      subject?: string;
-      description?: string;
-      attachmentUrl?: string;
-    };
+    const form = formidable({ multiples: false });
+    const { fields, files }: { fields: formidable.Fields; files: formidable.Files } = await new Promise((ok, err) =>
+      form.parse(req, (e, flds, fls) => (e ? err(e) : ok({ fields: flds, files: fls })))
+    );
 
-    if (!subject || typeof subject !== "string") {
-      return res.status(400).json({ error: "subject required" });
+    const subject = Array.isArray(fields.subject) ? fields.subject[0] : fields.subject;
+    if (!subject) return res.status(400).json({ error: "subject required" });
+
+    const descriptionField = Array.isArray(fields.description) ? fields.description[0] : fields.description;
+    const externalLink = Array.isArray(fields.externalLink) ? fields.externalLink[0] : fields.externalLink;
+
+    let description: string | undefined = descriptionField as string | undefined;
+    if (externalLink && typeof externalLink === "string" && externalLink.trim().length > 0) {
+      const linkLine = `External file: ${externalLink.trim()}`;
+      description = description ? `${description}\n${linkLine}` : linkLine;
+    }
+
+    let attachment: string | undefined;
+    const up = files.file as formidable.File | formidable.File[] | undefined;
+    const file = Array.isArray(up) ? up[0] : up;
+    if (file && (file as any).filepath) {
+      const buffer = await fs.promises.readFile(file.filepath);
+      const ext = path.extname(file.originalFilename || "");
+      const blob = await put(`tickets/${Date.now()}${ext}`, buffer, { access: "public" });
+      attachment = blob.url;
     }
 
     const ticket = await prisma.ticket.create({
       data: {
-        subject,
-        description: description && typeof description === "string" ? description : undefined,
-        attachment: attachmentUrl && typeof attachmentUrl === "string" ? attachmentUrl : undefined,
+        subject: subject as string,
+        description,
+        attachment,
         userId: session.user.id as string,
       },
     });
