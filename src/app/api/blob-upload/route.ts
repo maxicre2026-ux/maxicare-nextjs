@@ -1,7 +1,8 @@
 import { handleUpload } from "@vercel/blob/client";
 
-// This route is used by the client-side `upload` helper to securely
+// Route handler used by the client-side `upload` helper to securely
 // create blobs in Vercel Blob storage.
-// We don't need any special logic here, but `handleUpload` expects
-// an options object, so we pass an empty one.
-export const POST = handleUpload({});
+// The token is provided via the BLOB_READ_WRITE_TOKEN environment variable.
+export const POST = handleUpload({
+  token: process.env.BLOB_READ_WRITE_TOKEN,
+});
