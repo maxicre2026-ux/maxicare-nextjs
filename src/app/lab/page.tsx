@@ -323,7 +323,14 @@ export default function LabPage() {
                         <td className="py-2 text-xs">{t.status ?? '—'}</td>
                         <td className="py-2">
                           {t.attachment ? (
-                            <a href={`/tickets/${t.attachment}`} target="_blank" className="underline text-accent">View</a>
+                            <a
+                              href={t.attachment}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline text-accent"
+                            >
+                              View
+                            </a>
                           ) : "—"}
                         </td>
                         <td className="py-2">

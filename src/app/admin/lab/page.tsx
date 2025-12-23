@@ -66,7 +66,14 @@ function TicketRowItem({ t, onUpdate }: { t: TicketRow; onUpdate: (u: TicketRow)
       </td>
       <td className="py-2">
         {t.attachment ? (
-          <a href={`/tickets/${t.attachment}`} target="_blank" className="underline text-accent text-xs">View</a>
+          <a
+            href={t.attachment}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-accent text-xs"
+          >
+            View
+          </a>
         ) : (
           "—"
         )}
@@ -98,7 +105,7 @@ export default function LabAdminPage() {
   const { data: session, status } = useSession();
   const [tickets, setTickets] = useState<TicketRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const isLabAdmin = session?.user && ((session.user as any).role === "LAB_CLIENT" || (session.user as any).role === "ADMIN");
+  const isLabAdmin = session?.user && (session.user as any).role === "LAB_CLIENT";
 
   useEffect(() => {
     if (!isLabAdmin) return;
