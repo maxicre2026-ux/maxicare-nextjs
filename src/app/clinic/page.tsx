@@ -20,13 +20,17 @@ export default function ClinicPage() {
     return <p className="p-6">Access denied.</p>;
   }
 
+  if (status === "loading") {
+    return <section className="pt-32 text-center text-accent"><p>Loading...</p></section>;
+  }
+
   return (
     <section className="flex flex-col gap-8 pt-20">
       {/* Layout: Login شمال، النص يمين، Slider تحت */}
       {status === "unauthenticated" && (
         <div className="space-y-4 -mx-4 md:-mx-8">
           {/* الصف الأول: Login شمال + النص يمين - مع صورة خلفية */}
-          <div 
+          <div
             className="relative overflow-hidden min-h-[300px] md:min-h-[400px] w-screen"
             style={{
               backgroundImage: 'url(/assets/clinic-bg.jpg)',
@@ -37,62 +41,62 @@ export default function ClinicPage() {
           >
             {/* Overlay للتحكم في الشفافية */}
             <div className="absolute inset-0 bg-black/40"></div>
-            
+
             {/* المحتوى فوق الصورة */}
             <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-8 md:py-12">
               {/* Login buttons - الشمال */}
               <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg border-2 border-accent/30">
-              <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
-              <p className="text-sm text-accent leading-snug">
-                Book your appointment online and view full reports of your previous visits.
-              </p>
-              <div className="flex flex-col gap-2.5 pt-1">
-                <Link
-                  href="/auth/login"
-                  className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
-                >
-                  LOGIN
-                </Link>
-                <Link
-                  href="/auth/register"
-                  className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
-                >
-                  REGISTER
-                </Link>
+                <h1 className="text-2xl md:text-3xl font-bold text-accent">Clinic</h1>
+                <p className="text-sm text-accent leading-snug">
+                  Book your appointment online and view full reports of your previous visits.
+                </p>
+                <div className="flex flex-col gap-2.5 pt-1">
+                  <Link
+                    href="/auth/login"
+                    className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
+                  >
+                    LOGIN
+                  </Link>
+                  <Link
+                    href="/auth/register"
+                    className="border-2 border-accent text-accent py-2.5 px-6 rounded-lg text-center font-bold text-base hover:bg-accent hover:text-black transition-colors"
+                  >
+                    REGISTER
+                  </Link>
+                </div>
               </div>
-            </div>
 
               {/* النص - اليمين */}
               <div className="space-y-2.5 bg-black/60 backdrop-blur-sm p-4 rounded-lg">
-              <p className="text-xs md:text-sm text-accent font-bold leading-snug">
-                At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
-              </p>
-              <ul className="space-y-2 text-xs md:text-sm">
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity.</span>
-                </li>
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more.</span>
-                </li>
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers.</span>
-                </li>
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable implants.</span>
-                </li>
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</span>
-                </li>
-                <li className="flex gap-2.5">
-                  <span className="text-accent font-bold text-base">•</span>
-                  <span className="text-accent"><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
-                </li>
-              </ul>
+                <p className="text-xs md:text-sm text-accent font-bold leading-snug">
+                  At MaxiCare Dental Clinic, we have outfitted our practice with state-of-the-art dental technology to provide minimally invasive, precise, and pain-managed treatments.
+                </p>
+                <ul className="space-y-2 text-xs md:text-sm">
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Digital Diagnostics:</strong> Intraoral scanners and x-rays let us visualize your teeth and jaws with unparalleled clarity.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Laser Dentistry:</strong> We employ soft-tissue lasers for gum reshaping, lesion removal, and more.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Same-Day Dentistry:</strong> Our in-office CAD/CAM system empowers us to design and mill custom crowns, onlays, and veneers.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Dental Implants:</strong> Guided implant surgery and immediate-load protocols replace missing teeth with stable implants.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Cosmetic Dentistry:</strong> Porcelain veneers and tailored whitening deliver stunning esthetic results.</span>
+                  </li>
+                  <li className="flex gap-2.5">
+                    <span className="text-accent font-bold text-base">•</span>
+                    <span className="text-accent"><strong>Orthodontics:</strong> Metal braces, ceramic brackets, or clear aligners—choose the system that fits your lifestyle.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
