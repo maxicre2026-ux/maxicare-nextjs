@@ -25,8 +25,8 @@ export async function middleware(req: NextRequest) {
 
   const email = token?.email as string | undefined;
 
-  // STRICT RULE: Only labadmin@max.com can access /admin/lab
-  if (isLabAdminPage && email !== 'labadmin@max.com') {
+  // STRICT RULE: Only labadmin@maxi.com can access /admin/lab
+  if (isLabAdminPage && email !== 'labadmin@maxi.com') {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
