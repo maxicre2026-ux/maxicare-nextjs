@@ -8,8 +8,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const session = await getServerSession(req, res, authOptions);
   const role = (session?.user as any)?.role;
-  if (!session || (role !== "ADMIN" && role !== "LAB_CLIENT"))
+  // Only LAB_CLIENT (lab admin) can access lab tickets admin API
+  if (!session || role !== "LAB_CLIENT") {
     return res.status(403).json({ error: "Forbidden" });
+  }
 
   try {
     const tickets = await prisma.ticket.findMany({
