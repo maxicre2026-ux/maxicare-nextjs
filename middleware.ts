@@ -19,8 +19,15 @@ export async function middleware(req: NextRequest) {
   const isAdminRoute = pathname.startsWith('/admin');
 
   // 1. If not logged in and trying to access ANY admin route, redirect to login
-  if (!role && isAdminRoute) {
+  if (!token && isAdminRoute) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
+  }
+
+  const email = token?.email as string | undefined;
+
+  // STRICT RULE: Only labadmin@max.com can access /admin/lab
+  if (isLabAdminPage && email !== 'labadmin@max.com') {
+    return NextResponse.redirect(new URL('/', req.url));
   }
 
   // 2. If logged in but NOT an admin (e.g. CLIENT), deny access to ANY admin route
