@@ -35,11 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const descriptionField = Array.isArray(fields.description) ? fields.description[0] : fields.description;
     const externalLink = Array.isArray(fields.externalLink) ? fields.externalLink[0] : fields.externalLink;
 
-    let description: string | undefined = descriptionField as string | undefined;
-    if (externalLink && typeof externalLink === "string" && externalLink.trim().length > 0) {
-      const linkLine = `External file: ${externalLink.trim()}`;
-      description = description ? `${description}\n${linkLine}` : linkLine;
-    }
+    const description = descriptionField as string | undefined;
 
     let attachment: string | undefined;
     const up = files.file as formidable.File | formidable.File[] | undefined;
@@ -55,6 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         subject: subject as string,
         description,
+        externalLink: externalLink as string | undefined,
         attachment,
         userId: session.user.id as string,
       },

@@ -55,6 +55,7 @@ model Ticket {
   subject     String
   description String?
   attachment  String?
+  externalLink String?
   resultFile  String?
   status      TicketStatus    @default(PENDING)
   user        User            @relation(fields: [userId], references: [id])

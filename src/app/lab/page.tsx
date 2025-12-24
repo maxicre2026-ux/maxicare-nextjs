@@ -11,6 +11,7 @@ interface Ticket {
   description?: string;
   attachment?: string;
   files?: { id: string; filename: string }[];
+  externalLink?: string;
   resultFile?: string;
   response?: string;
   status?: string;
@@ -121,7 +122,7 @@ export default function LabPage() {
           } else {
             errMsg = await response.text();
           }
-        } catch {}
+        } catch { }
         setError(errMsg);
         setUploadProgress(null);
       }
@@ -139,7 +140,7 @@ export default function LabPage() {
       {status === "unauthenticated" && (
         <div className="space-y-4 -mx-4 md:-mx-8">
           {/* Hero Section مع صورة خلفية */}
-          <div 
+          <div
             className="relative overflow-hidden min-h-[350px] md:min-h-[450px] w-screen"
             style={{
               backgroundImage: 'url(/assets/lab-bg.jpg)',
@@ -150,7 +151,7 @@ export default function LabPage() {
           >
             {/* Overlay للتحكم في الشفافية */}
             <div className="absolute inset-0 bg-black/40"></div>
-            
+
             {/* المحتوى فوق الصورة */}
             <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center p-6 py-16 md:py-20">
               {/* Login buttons - الشمال */}
@@ -307,6 +308,7 @@ export default function LabPage() {
                     <th className="py-2 text-left">Date</th>
                     <th className="py-2 text-left">Subject</th>
                     <th className="py-2 text-left">Status</th>
+                    <th className="py-2 text-left">External Link</th>
                     <th className="py-2 text-left">Attachment</th>
                     <th className="py-2 text-left">Result</th>
                     <th className="py-2 text-left">Response</th>
@@ -321,6 +323,13 @@ export default function LabPage() {
                         <td className="py-2">{dateStr}</td>
                         <td className="py-2">{t.subject}</td>
                         <td className="py-2 text-xs">{t.status ?? '—'}</td>
+                        <td className="py-2">
+                          {t.externalLink ? (
+                            <a href={t.externalLink} target="_blank" rel="noopener noreferrer" className="underline text-accent">
+                              Open
+                            </a>
+                          ) : "—"}
+                        </td>
                         <td className="py-2">
                           {t.attachment ? (
                             <a
@@ -343,7 +352,7 @@ export default function LabPage() {
                         <td className="py-2 text-xs whitespace-pre-wrap">
                           {(t.messages && t.messages.length > 0
                             ? t.messages.filter(m => m.author === 'ADMIN').map(m => m.text).join('\n')
-                            : t.response || '—') }
+                            : t.response || '—')}
                         </td>
                       </tr>
                     );

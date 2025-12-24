@@ -7,6 +7,7 @@ interface TicketRow {
   subject: string;
   description?: string;
   attachment?: string;
+  externalLink?: string;
   resultFile?: string;
   status: string;
   response?: string;
@@ -63,6 +64,18 @@ function TicketRowItem({ t, onUpdate }: { t: TicketRow; onUpdate: (u: TicketRow)
             <option key={s}>{s}</option>
           ))}
         </select>
+      </td>
+      <td className="py-2">
+        {t.externalLink ? (
+          <a
+            href={t.externalLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-accent text-xs"
+          >
+            Open
+          </a>
+        ) : "—"}
       </td>
       <td className="py-2">
         {t.attachment ? (
@@ -138,6 +151,7 @@ export default function LabAdminPage() {
               <th className="py-2 text-left">Subject</th>
               <th className="py-2 text-left">Customer</th>
               <th className="py-2 text-left">Status</th>
+              <th className="py-2 text-left">Ext. Link</th>
               <th className="py-2 text-left">Attachment</th>
               <th className="py-2 text-left">Result</th>
               <th className="py-2 text-left">Response</th>
